@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="UTF-8">
+				{% block title %}Login.{% endblock %}
+
+</head>
+<body>
+	Olá {{ user }}
+	<br>
+	<br>
+	<a href="/principal">PRINCIPAL</a>
+		{% for i in perm %}
+			{% for j in grupo %}
+			{% if i.groups in j.nome%}
+				<a href="/principal{{ j.link }}">{{ i }}</a>
+			{% endif %}
+		    {% endfor %}
+		{% endfor %}
+	<br>
+	<a href="/logout">Logout</a> <a href="/principal/sgu/chg_pass">esqueci a senha</a><br><br>
+        {% block main %}
+        
+        {% endblock %}
+</body>
+</html>

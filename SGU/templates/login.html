@@ -1,0 +1,19 @@
+{% block main %}
+<h1>Login</h1>
+<section >
+    <form method="POST" action=" ">
+            {% csrf_token %}
+            <table class="box_style login2">
+                <tr>
+                    <td>Username:</td> <td><input name = "username" /></td>
+                </tr>
+                <tr>
+                    <td>Senha:</td> <td><input type = "password" name = "password" /></td>
+                </tr>
+                <tr>
+                    <td><button type="submit" class="submit">entrar</button></td>
+                </tr>
+            </table>
+    </form>
+</section>
+{% endblock %}
