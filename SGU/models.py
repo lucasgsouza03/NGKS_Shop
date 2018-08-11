@@ -28,7 +28,7 @@ class usuario(AbstractBaseUser):
     email = models.CharField(max_length=100)
     password = models.CharField(max_length=150)
     ativo = models.BooleanField(default=True)
-    
+    validacao = models.CharField(max_length=150, blank=True)
 
     USERNAME_FIELD = 'username' 
     REQUIRED_FIELDS = ['email'] 
