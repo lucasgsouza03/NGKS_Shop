@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
 from SGU.forms import cadasto_user # Formulario de criacao de usuarios
 from SGU.models import grupos, usuario, Permissions
+from django.contrib.auth import authenticate
 
 # Create your views here.
 
@@ -12,8 +13,7 @@ def header(request):
     grupo = grupos.objects.all()
     contexto = {'perm':perm, 'grupo': grupo}
     return contexto
-def logon(request):
-    return render(request, "login.html")
+
 def erro_acesso(request):
     return render(request, "erro_acesso.html")
 
@@ -63,9 +63,6 @@ def cadastro_user(request):
                 done = Permissions.objects.create(groups=i, usuario_id=pessoa.id)
                 done.save()
             return HttpResponseRedirect("/principal/sgu")
-        else:
-            
-            return render(request, "cadastro_user.html", contexto)
     else:
         contexto = header(request)
         contexto["form"] =  cadasto_user()
@@ -81,6 +78,7 @@ def detalhes(request, username):
         email = request.POST.get("email")
         perm_update = request.POST.getlist("grupo")
         button = request.POST.get("button")
+        is_active = request.POST.get("is_active")
         pessoa = usuario.objects.get(username=username)
         contexto = header(request)
         perms = []
@@ -100,6 +98,11 @@ def detalhes(request, username):
         for i in Permissions.objects.filter(usuario_id__id=pessoa.id):
             i = str(i)
             perms.append(i)
+        print(pessoa.id)
+        if is_active == "on":
+            pessoa.is_active = 1
+        elif is_active is None:
+            pessoa.is_active = 0
         pessoa.nome = nome
         pessoa.email = email
         pessoa.save()

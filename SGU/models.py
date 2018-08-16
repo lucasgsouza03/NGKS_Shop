@@ -2,7 +2,7 @@ from django.db import models
 
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager 
 
-# Create your models here.
+# Create your models here. 
 
 class UsuarioManager(BaseUserManager):
     use_in_migrations = True
@@ -27,7 +27,7 @@ class usuario(AbstractBaseUser):
     username = models.CharField(max_length=100, unique=True)   
     email = models.CharField(max_length=100)
     password = models.CharField(max_length=150)
-    ativo = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
     validacao = models.CharField(max_length=150, blank=True)
 
     USERNAME_FIELD = 'username' 

@@ -13,6 +13,11 @@
                 <label>{{ i }}<input type="checkbox" name="grupo" value="{{ i }}"></label>
             {% endif %}
         {% endfor %}
+        {% if detalhes.is_active == True %}
+            <p><label>Ativo: <input type="checkbox" name="is_active" checked></label>
+        {% else %}
+            <p><label>Ativo: <input type="checkbox" name="is_active"></label>
+        {% endif %}
         <p><button type="submit" name="button" value="update">Salvar</button><button type="submit" name="button" value="update_continue">Salvar e continuar editando</button>
     </form>
     {% endblock %}
