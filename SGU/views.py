@@ -135,6 +135,11 @@ def principal(request):
     contexto = header(request)
     return render(request, "principal.html", contexto)
 
+def validate(request):
+    return render(request, "chg_pass.html")
+def chg_pass(request):
+    return render(request, "chg_pass.html")
+
 @login_required(login_url='/login')
 def chg_pass(request):
     if request.method == 'POST':
