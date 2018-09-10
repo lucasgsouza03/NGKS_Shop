@@ -1,7 +1,7 @@
-{% extends 'base.html' %} 
+{% extends 'base_admin.html' %} 
 {% load static %}
     {% block main %}
-    <a href="/principal/sgu/cadastro_user"> Cadastrar usuário</a>
+    <a href="{% url 'sgu:cadastro_user' %}"> Cadastrar usuário</a>
     <br><br><br>
     <form method="POST">
         {% csrf_token %}
@@ -11,7 +11,7 @@
             </tr>
             {% for i in users %}
                 <tr style="border: 1px solid black;">
-                    <td style="border: 1px solid black;">{{ i.nome }}</td> <td style="border: 1px solid black;"> {{ i.username }} </td><td style="border: 1px solid black;"> {{ i.email }} </td> <td style="border: 1px solid black;"> <button type="submit" name="delete" value="{{ i.id }}">Delete</button>  </td></td> <td style="border: 1px solid black;"><a href="{% url 'detalhes' username=i.username %}">Editar</a></td>
+                    <td style="border: 1px solid black;">{{ i.nome }}</td> <td style="border: 1px solid black;"> {{ i.username }} </td><td style="border: 1px solid black;"> {{ i.email }} </td> <td style="border: 1px solid black;"> <button type="submit" name="delete" value="{{ i.id }}">Delete</button>  </td></td> <td style="border: 1px solid black;"><a href="{{ i.get_absolute_url }}">Editar</a></td>
                 </tr>
             {% endfor %}
         </table>
