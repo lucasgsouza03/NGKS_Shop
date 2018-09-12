@@ -1,7 +1,7 @@
 {% extends 'base_admin.html' %} 
 {% load static %}
     {% block main %}
-    <a href="{% url 'sgu:cadastro_user' %}"> Cadastrar usuário</a>
+    <a href="{% url 'sgu:cadastro_usuario' %}"> Cadastrar usuário</a>
     <br><br><br>
     <form method="POST">
         {% csrf_token %}

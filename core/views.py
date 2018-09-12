@@ -1,18 +1,18 @@
 from django.shortcuts import render
-from src.findgroup import get_groups
+from src.usuario import Gerencia_permissao
 from django.contrib.auth.decorators import login_required, user_passes_test
 from SGU.models import Grupos, Usuario, Permissions
 
 # Create your views here.
 
 def check_estoque(request):
-    return 'ESTOQUE' in get_groups(request)
+    return 'ESTOQUE' in Gerencia_permissao.Pega_grupo(request)
 
 def check_fluxo(request):
-    return 'FLUXO' in get_groups(request)
+    return 'FLUXO' in Gerencia_permissao.Pega_grupo(request)
 
 def check_pedidos(request):
-    return 'PEDIDOS' in get_groups(request)
+    return 'PEDIDOS' in Gerencia_permissao.Pega_grupo(request)
 
 def check_empresa(request):
     user = Usuario.objects.get(username=request.username)

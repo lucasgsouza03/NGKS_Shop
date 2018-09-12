@@ -2,11 +2,11 @@ from django.shortcuts import render_to_response, render
 from django.http import HttpResponseRedirect # Funcao para redirecionar o usuario
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
-from SGU.forms import cadasto_user, LoginForm # Formulario de criacao de usuarios
+from SGU.forms import form_usuario, LoginForm # Formulario de criacao de usuarios
 from SGU.models import Grupos, Usuario, Permissions
 from django.contrib.auth import authenticate
 from django.contrib.auth.views import login
-from src.findgroup import get_groups
+from src.usuario import Gerencia_usuario, Gerencia_permissao
 from django.urls import reverse
 
 # Create your views here.
@@ -16,86 +16,43 @@ from django.urls import reverse
 def erro_acesso(request):
     return render(request, "erro_acesso.html")
 
-def check_sgu(request):
-    return 'SGU' in get_groups(request)
+def checa_sgu(request):
+    return 'SGU' in Gerencia_permissao.Pega_grupo(request)
 
 @login_required(login_url='login')
-@user_passes_test(check_sgu, login_url='erro_acesso', redirect_field_name=None)
+@user_passes_test(checa_sgu, login_url='sgu:erro_acesso', redirect_field_name=None)
 def sgu(request):
     contexto = {
         "users" : Usuario.objects.all()
     } 
     delete = request.POST.get("delete")
     if delete:
-        Permissions.objects.filter(usuario_id=delete).delete()
-        Usuario.objects.filter(id=delete).delete()
+        Gerencia_usuario.Deleta_usuario(delete)
     return render(request, "sgu.html", contexto)
 
 @login_required(login_url='login')
-@user_passes_test(check_sgu, login_url='erro_acesso', redirect_field_name=None)
-def cadastro_user(request):
-    
+@user_passes_test(checa_sgu, login_url='sgu:erro_acesso', redirect_field_name=None)
+def cadastro_usuario(request):    
     if request.method == 'POST':
-        form = cadasto_user(request.POST)
+        form = form_usuario(request.POST)
         if form.is_valid():
-            nome = request.POST.getlist("grupo")
-            form.save()
-            username = request.POST.get("username")
-            pessoa = Usuario.objects.get(username=username)
-            pessoa.tipo = 'E'
-            pessoa.save()
-            for i in nome:
-                done = Permissions.objects.create(groups=i, usuario_id=pessoa.id)
-                done.save()
+            Gerencia_usuario.Cria_usuario(request, form)
             return HttpResponseRedirect(reverse('sgu:sgu'))
         else:
-            return HttpResponseRedirect(reverse('sgu:cadastro_user'))
+            return HttpResponseRedirect(reverse('sgu:cadastro_usuario'))
     else:
         contexto = {
-            "form" : cadasto_user(),
+            "form" : form_usuario(),
             "grupos" : Grupos.objects.all(),
         }            
-        return render(request, "cadastro_user.html", contexto)
+        return render(request, "cadastro_usuario.html", contexto)
 
 @login_required(login_url='login')
-@user_passes_test(check_sgu, login_url='erro_acesso', redirect_field_name=None)
+@user_passes_test(checa_sgu, login_url='sgu:erro_acesso', redirect_field_name=None)
 def detalhes(request, username):
     if request.method == 'POST':
-        nome = request.POST.get("nome")
-        email = request.POST.get("email")
-        perm_update = request.POST.getlist("grupo")
         button = request.POST.get("button")
-        is_active = request.POST.get("is_active")
-        pessoa = Usuario.objects.get(username=username)
-        perms = []
-        grupo = []
-        for i in Permissions.objects.filter(usuario_id__id=pessoa.id):
-            i = str(i)
-            perms.append(i)
-        for i in perms:
-            if i not in perm_update:
-                Permissions.objects.filter(usuario_id__id=pessoa.id, groups=i).delete()
-        for i in perm_update:
-            if i not in perms:
-                Permissions.objects.create(groups=i, usuario_id=pessoa.id)
-        for i in Grupos.objects.all():
-            i = str(i)
-            grupo.append(i)
-        for i in Permissions.objects.filter(usuario_id__id=pessoa.id):
-            i = str(i)
-            perms.append(i)
-        if is_active == "on":
-            pessoa.is_active = 1
-        elif is_active is None:
-            pessoa.is_active = 0
-        pessoa.nome = nome
-        pessoa.email = email
-        pessoa.save()
-        contexto = {
-            "detalhes" : pessoa,
-            "grupos" : grupo,
-            "perms" : perms,
-        }
+        contexto = Gerencia_usuario.Atualiza_usuario(request, username)
         if button == "update_continue":
             return HttpResponseRedirect(reverse('sgu:detalhes'))
         elif button == "update":
@@ -162,8 +119,8 @@ def loginAdminPanel(request):
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            user = Usuario.objects.get(username=username)
-            if user.tipo == 'E':
+            usuario = Usuario.objects.get(username=username)
+            if usuario.tipo == 'E':
                 account = authenticate(username=username, password=password)
                 if account is not None:
                     login(request, account)

@@ -15,6 +15,7 @@ Including another pathconf
 """
 from django.conf.urls import url, include
 from core.views import *
+from django.contrib.auth import views as auth_views 
 
 urlpatterns = [
     url(r'^sgu/', include(('SGU.urls', 'sgu'), namespace='sgu')),
@@ -22,5 +23,9 @@ urlpatterns = [
     url(r'^principal/fluxo/$', fluxo, name='fluxo'),
     url(r'^principal/pedidos/$', pedidos, name='pedidos'),
     url(r'^principal/$', principal, name='principal'),
+    url(r'^password_reset/$', auth_views.password_reset, {'subject_template_name': 'password_reset_subject.txt'}, name='password_reset'),
+    url(r'^password_reset/done/$', auth_views.password_reset_done, name='password_reset_done'),
+    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', auth_views.password_reset_confirm, name='password_reset_confirm'),
+    url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
 
 ]
