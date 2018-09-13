@@ -3,6 +3,7 @@ from django.forms import ModelForm
 from SGU.models import Usuario
 
 class form_usuario(ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
     class Meta():
         model = Usuario
         fields = ['username','password', 'nome', 'email']
