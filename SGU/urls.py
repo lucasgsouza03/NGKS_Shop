@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from SGU.views import *
 from django.contrib.auth.views import login,logout
-from django.contrib.auth import views as auth_views 
+from SGU import auth as auth_views 
 
 urlpatterns = [
     url(r'^$', sgu, name='sgu'),
