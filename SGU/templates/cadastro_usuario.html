@@ -1,0 +1,14 @@
+{% extends 'base_admin.html' %} 
+{% load static %}
+    {% block main %}
+        <form method="POST">
+            {% csrf_token %}
+            
+            {{ form.as_p }}
+
+            {% for i in grupos %}
+                <label>{{ i.nome }}<input type="checkbox" name="grupo" value="{{ i.nome }}"></label>
+            {% endfor %}
+            <br><input type='submit' value='Registrar' />
+    </form>
+    {% endblock %}

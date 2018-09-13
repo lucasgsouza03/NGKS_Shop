@@ -1,6 +1,7 @@
 from django.db import models
 
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager 
+from django.urls import reverse
 
 # Create your models here. 
 
@@ -22,10 +23,11 @@ class UsuarioManager(BaseUserManager):
 
  
 
-class usuario(AbstractBaseUser):
+class Usuario(AbstractBaseUser):
     nome = models.CharField(max_length=100)
     username = models.CharField(max_length=100, unique=True)   
-    email = models.CharField(max_length=100)
+    email = models.CharField(max_length=100, unique=True)
+    tipo = models.CharField(max_length=1)
     password = models.CharField(max_length=150)
     is_active = models.BooleanField(default=True)
     validacao = models.CharField(max_length=150, blank=True)
@@ -46,13 +48,21 @@ class usuario(AbstractBaseUser):
 
     def get_short_name(self):
         return self.nome
+
     def get_full_name(self):
         return self.nome
 
     def __unicode__(self):
         return self.nome
+    
+    def get_absolute_url(self):
+        return reverse('sgu:detalhes', kwargs={'username':self.username})
 
-class grupos(models.Model):
+class Cliente(Usuario):
+    cep = models.IntegerField()
+    cpf = models.IntegerField()
+
+class Grupos(models.Model):
     nome = models.CharField(max_length=50)
     link = models.CharField(max_length=50)
     def __str__(self):
