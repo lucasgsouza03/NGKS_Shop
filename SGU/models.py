@@ -57,6 +57,8 @@ class Usuario(AbstractBaseUser):
     
     def get_absolute_url(self):
         return reverse('sgu:detalhes', kwargs={'username':self.username})
+    class Meta:
+        ordering = ['nome']
 
 class Cliente(Usuario):
     cep = models.IntegerField()
