@@ -19,7 +19,7 @@ def erro_acesso(request):
 def checa_sgu(request):
     return 'SGU' in Gerencia_permissao.Pega_grupo(request)
 
-@login_required(login_url='login')
+@login_required(login_url='sgu:login')
 @user_passes_test(checa_sgu, login_url='sgu:erro_acesso', redirect_field_name=None)
 def sgu(request):
     contexto = {
@@ -30,7 +30,7 @@ def sgu(request):
         Gerencia_usuario.Deleta_usuario(delete)
     return render(request, "sgu.html", contexto)
 
-@login_required(login_url='login')
+@login_required(login_url='sgu:login')
 @user_passes_test(checa_sgu, login_url='sgu:erro_acesso', redirect_field_name=None)
 def cadastro_usuario(request):    
     if request.method == 'POST':
@@ -47,14 +47,14 @@ def cadastro_usuario(request):
         }            
         return render(request, "cadastro_usuario.html", contexto)
 
-@login_required(login_url='login')
+@login_required(login_url='sgu:login')
 @user_passes_test(checa_sgu, login_url='sgu:erro_acesso', redirect_field_name=None)
 def detalhes(request, username):
     if request.method == 'POST':
         button = request.POST.get("button")
         contexto = Gerencia_usuario.Atualiza_usuario(request, username)
         if button == "update_continue":
-            return HttpResponseRedirect(reverse('sgu:detalhes'))
+            return HttpResponseRedirect(reverse('sgu:detalhes', kwargs={'username':username}))
         elif button == "update":
             return HttpResponseRedirect(reverse('sgu:sgu'))
     else:
@@ -75,7 +75,7 @@ def detalhes(request, username):
         }
     return render(request, "detalhes.html", contexto)
 
-@login_required(login_url='login')
+@login_required(login_url='sgu:login')
 def chg_pass(request):
     if request.method == 'POST':
         pass_old = request.POST.get("pass_old")
@@ -128,16 +128,16 @@ def loginAdminPanel(request):
                 else:
                     form = LoginForm()
                     context = {'form':form}
-                    return render(request, 'login.html', context)
+                    return render(request, 'sgu:login.html', context)
             else:
                 form = LoginForm()
                 context = {'form':form}
-                return render(request, 'login.html', context)
+                return render(request, 'sgu:login.html', context)
         else:
             form = LoginForm()
             context = {'form':form}
-            return render(request, 'login.html', context)
+            return render(request, 'sgu:login.html', context)
     else:
         form = LoginForm()
         context = {'form':form}
-    return render(request, 'login.html', context)
+    return render(request, "login.html", context)

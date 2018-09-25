@@ -1,0 +1,22 @@
+{% extends 'base_admin.html' %} 
+{% load static %}
+    {% block main %}
+    <center>
+        <h1> CATEGORIAS </h1>
+    </center>
+    <br><br><br>
+    <a href="{% url 'catalogo:adiciona_categoria' %}"> Adicionar categoria</a>
+    <form method="POST">
+        {% csrf_token %}
+        <table style="border: 1px solid black; padding: 2px">
+            <tr style="border: 1px solid black;">
+                <th style="border: 1px solid black;">Nome</th> <th style="border: 1px solid black;"> Identificador </th><th style="border: 1px solid black;"> Criado em </th> <th style="border: 1px solid black;"> Modificado em </th><th style="border: 1px solid black;"> Deletar </th><th style="border: 1px solid black;"> Editar </th>
+            </tr>
+            {% for i in categorias %}
+                <tr style="border: 1px solid black;">
+                    <td style="border: 1px solid black;">{{ i.nome }}</td> <td style="border: 1px solid black;"> {{ i.slug }} </td><td style="border: 1px solid black;"> {{ i.criado }} </td> <td style="border: 1px solid black;"> {{ i.modificado }} </td><td style="border: 1px solid black;"> <button type="submit" name="delete" value="{{ i.id }}">Delete</button></td><td style="border: 1px solid black;"><a href="{{ i.get_absolute_url }}">Editar</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </form>
+    {% endblock %}

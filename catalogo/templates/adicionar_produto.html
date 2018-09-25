@@ -1,0 +1,25 @@
+{% extends 'base_admin.html' %} 
+{% load static %}
+    {% block main %}
+    <center>
+        <h1> Adicionar Produto </h1>
+    </center>
+
+    <section>
+        <form method="POST">
+            {% csrf_token %}
+            Nome: <input type="text" name="nome" required=""><br>
+            Identificador: <input type="text" name="slug" required=""><br>
+            Categoria: <select name="categoria" required="">
+                                <option value="">---------</option>
+                            {% for i in categorias %}
+                                <option value="{{ i.id }}">{{ i.nome }}</option>
+                            {% endfor %}
+                        </select><br>
+            Descrição: <textarea name="descricao" cols="40" rows="10"></textarea><br>
+            Preço: <input name="price" step="0.01" required="" type="number">
+            <br><br>
+            <br><button type="submit" name="button" value="update">Cadastrar</button>
+        </form>
+    </section>
+    {% endblock %}

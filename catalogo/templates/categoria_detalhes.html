@@ -1,0 +1,12 @@
+{% extends 'base_admin.html' %} 
+{% load static %}
+    {% block main %}
+    <form method="POST">
+        {% csrf_token %}
+        <h3>{{ categoria.username }}</h3>
+        <br>
+        Nome: <input type="text" value="{{ categoria.nome }}" name="nome"><br>
+        <br>
+        <p><button type="submit" name="button" value="update">Salvar</button><button type="submit" name="button" value="update_continue">Salvar e continuar editando</button>
+    </form>
+    {% endblock %}

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'SGU',
+    'catalogo',
 ]
 
 MIDDLEWARE = [
@@ -63,7 +64,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'SGU.context_processors.header'
+                'SGU.context_processors.header',
+                'core.context_processors.categorias'
             ],
         },
     },
