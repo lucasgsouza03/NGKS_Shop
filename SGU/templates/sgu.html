@@ -1,6 +1,9 @@
 {% extends 'base_admin.html' %} 
 {% load static %}
     {% block main %}
+    <center>
+        <h1> SGU </h1>
+    </center>
     <a href="{% url 'sgu:cadastro_usuario' %}"> Cadastrar usuário</a>
     <br><br><br>
     <form method="POST">
@@ -11,7 +14,7 @@
             </tr>
             {% for i in users %}
                 <tr style="border: 1px solid black;">
-                    <td style="border: 1px solid black;">{{ i.nome }}</td> <td style="border: 1px solid black;"> {{ i.username }} </td><td style="border: 1px solid black;"> {{ i.email }} </td> <td style="border: 1px solid black;"> <button type="submit" name="delete" value="{{ i.id }}">Delete</button>  </td></td> <td style="border: 1px solid black;"><a href="{{ i.get_absolute_url }}">Editar</a></td>
+                    <td style="border: 1px solid black;">{{ i.nome }}</td> <td style="border: 1px solid black;"> {{ i.username }} </td><td style="border: 1px solid black;"> {{ i.email }} </td> <td style="border: 1px solid black;"> <button type="submit" name="delete" value="{{ i.id }}">Delete</button>  </td><td style="border: 1px solid black;"><a href="{{ i.get_absolute_url }}">Editar</a></td>
                 </tr>
             {% endfor %}
         </table>

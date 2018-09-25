@@ -1,0 +1,10 @@
+{% extends 'base_admin.html' %} 
+{% load static %}
+    {% block main %}
+    <center>
+        <h1> CATALOGO </h1>
+    </center>
+
+    <a href="{% url 'catalogo:categorias' %}">Categorias</a><br>
+    <a href="{% url 'catalogo:produtos' %}">Produtos</a>
+    {% endblock %}

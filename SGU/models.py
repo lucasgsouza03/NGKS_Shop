@@ -57,6 +57,7 @@ class Usuario(AbstractBaseUser):
     
     def get_absolute_url(self):
         return reverse('sgu:detalhes', kwargs={'username':self.username})
+
     class Meta:
         ordering = ['nome']
 
@@ -67,12 +68,15 @@ class Cliente(Usuario):
 class Grupos(models.Model):
     nome = models.CharField(max_length=50)
     link = models.CharField(max_length=50)
+
     def __str__(self):
         return self.nome
+
 
 class Permissions(models.Model):
     groups = models.CharField(max_length=50)
     usuario = models.ForeignKey('usuario',
     on_delete=models.DO_NOTHING,)
+    
     def __str__(self):
         return self.groups

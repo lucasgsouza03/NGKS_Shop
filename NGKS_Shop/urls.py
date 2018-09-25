@@ -17,9 +17,16 @@ from django.conf.urls import url, include
 from core.views import *
 
 urlpatterns = [
-    url(r'^sgu/', include(('SGU.urls', 'sgu'), namespace='sgu')),
-    url(r'^principal/estoque/$', estoque, name='estoque'),
-    url(r'^principal/fluxo/$', fluxo, name='fluxo'),
-    url(r'^principal/pedidos/$', pedidos, name='pedidos'),
+    #ecommerce
+    url(r'^$', index, name='index'),
+    url(r'^lista_produtos/', lista_produtos, name='lista_produtos'),
+    url(r'^categoria/(?P<slug>[\w_-]+)/$', loja_categoria, name='loja_categoria'),
+    url(r'^produtos/(?P<slug>[\w_-]+)/$', loja_produto, name='loja_produto'),
+    #administrativo
     url(r'^principal/$', principal, name='principal'),
+    url(r'^sgu/', include(('SGU.urls', 'sgu'), namespace='sgu')),
+    url(r'^estoque/$', estoque, name='estoque'),
+    url(r'^fluxo/$', fluxo, name='fluxo'),
+    url(r'^pedidos/$', pedidos, name='pedidos'),
+    url(r'^catalogo/', include(('catalogo.urls', 'catalogo'), namespace='catalogo')),
 ]

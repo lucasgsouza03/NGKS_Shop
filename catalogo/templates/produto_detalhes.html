@@ -1,0 +1,24 @@
+{% extends 'base_admin.html' %} 
+{% load static %}
+    {% block main %}
+    <form method="POST">
+        {% csrf_token %}
+        <h3>{{ categoria.username }}</h3>
+        <br>
+        Nome: <input type="text" value="{{ produto.nome }}" name="nome"><br>
+        Categoria:  <select name="categoria" required="">
+                        <option value="">---------</option>
+                        {% for i in categorias %}
+                            {% if i.id == produto.categoria_id %}
+                                <option value="{{ i.id }}" selected="">{{ i.nome }}</option>
+                            {% else %}
+                                <option value="{{ i.id }}">{{ i.nome }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select><br>
+        Descrição: <textarea name="descricao" cols="40" rows="10"> {{ produto.descricao }} </textarea><br>
+        Preço: <input name="price" value="{{ price }}" step="0.01" required="" type="number"><br>
+        <br>
+        <p><button type="submit" name="button" value="update">Salvar</button><button type="submit" name="button" value="update_continue">Salvar e continuar editando</button>
+    </form>
+    {% endblock %}
