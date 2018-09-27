@@ -76,7 +76,7 @@ class Grupos(models.Model):
 class Permissions(models.Model):
     groups = models.CharField(max_length=50)
     usuario = models.ForeignKey('usuario',
-    on_delete=models.DO_NOTHING,)
+    on_delete=models.CASCADE,)
     
     def __str__(self):
         return self.groups
