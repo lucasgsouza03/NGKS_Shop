@@ -15,6 +15,7 @@ Including another pathconf
 """
 from django.conf.urls import url, include
 from core.views import *
+from django.contrib.auth.views import logout
 
 urlpatterns = [
     #ecommerce
@@ -22,6 +23,9 @@ urlpatterns = [
     url(r'^lista_produtos/', lista_produtos, name='lista_produtos'),
     url(r'^categoria/(?P<slug>[\w_-]+)/$', loja_categoria, name='loja_categoria'),
     url(r'^produtos/(?P<slug>[\w_-]+)/$', loja_produto, name='loja_produto'),
+    url(r'^registro/', registro, name='cadastro_cliente'),
+    url(r'^login/$', loginEcommerce, name='loginEcommerce'),
+    url(r'^logout/$', logout, {'next_page': 'index'} ,name='logout'),
     #administrativo
     url(r'^principal/$', principal, name='principal'),
     url(r'^sgu/', include(('SGU.urls', 'sgu'), namespace='sgu')),

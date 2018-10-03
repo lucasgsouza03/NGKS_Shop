@@ -12,7 +12,7 @@
 		{% for i in perm %}
 			{% for j in grupo %}
 			{% if i.groups in j.nome%}
-				<a href="/{{ j.link }}">{{ i }}</a>
+				<a href="{{ j.link }}">{{ i }}</a>
 			{% endif %}
 		    {% endfor %}
 		{% endfor %}

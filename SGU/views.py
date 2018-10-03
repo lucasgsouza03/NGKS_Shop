@@ -2,16 +2,18 @@ from django.shortcuts import render_to_response, render
 from django.http import HttpResponseRedirect # Funcao para redirecionar o usuario
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
-from SGU.forms import form_usuario, LoginForm # Formulario de criacao de usuarios
+from django.utils.decorators import method_decorator
+from SGU.forms import form_usuario, LoginForm
 from SGU.models import Grupos, Usuario, Permissions
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.views import login
+from django.views.generic import CreateView
 from src.usuario import Gerencia_usuario, Gerencia_permissao
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 # Create your views here.
 
-#context_processors
+User_model = get_user_model()
 
 def erro_acesso(request):
     return render(request, "erro_acesso.html")
@@ -30,6 +32,23 @@ def sgu(request):
         Gerencia_usuario.Deleta_usuario(delete)
     return render(request, "sgu.html", contexto)
 
+'''
+class View_Registro(CreateView):
+    @method_decorator(user_passes_test(checa_sgu, login_url='sgu:erro_acesso', redirect_field_name=None))
+    @method_decorator(login_required(login_url='sgu:login'))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)    
+    form_class = form_usuario
+    template_name = 'cadastro_usuario.html'
+    model = User_model
+    success_url = reverse_lazy('sgu:sgu')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['grupos'] = Grupos.objects.all()
+        return context
+
+registro_usuario = View_Registro.as_view()
+'''
 @login_required(login_url='sgu:login')
 @user_passes_test(checa_sgu, login_url='sgu:erro_acesso', redirect_field_name=None)
 def cadastro_usuario(request):    
@@ -89,30 +108,6 @@ def chg_pass(request):
             print ("Senha incorreta")
     return render(request, "chg_pass.html", contexto)
 
-
-'''
-def loginDashboard(request):
-  if request.user.is_authenticated():
-    return HttpResponseRedirect('/')
-  if request.method == 'POST':
-    form = LoginForm(request.POST)
-    if form.is_valid():
-      username = form.cleaned_data['username']
-      password = form.cleaned_data['password']
-      account = authenticate(username=username, password=password)
-      if account is not None:
-        login(request, account)
-#here is redirecting to dashboard
-          return HttpResponseRedirect('/dashboard/')
-      else:
-        return render(request, 'profiles/login.html', context)
-    else:
-      return render(request, 'profiles/login.html', context)
-  else:
-    form = LoginForm()
-    context = {'form':form}
-    return render(request, 'profiles/login.html', context)
-'''
 def loginAdminPanel(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -128,16 +123,16 @@ def loginAdminPanel(request):
                 else:
                     form = LoginForm()
                     context = {'form':form}
-                    return render(request, 'sgu:login.html', context)
+                    return render(request, 'login_admin.html', context)
             else:
                 form = LoginForm()
                 context = {'form':form}
-                return render(request, 'sgu:login.html', context)
+                return render(request, 'login_admin.html', context)
         else:
             form = LoginForm()
             context = {'form':form}
-            return render(request, 'sgu:login.html', context)
+            return render(request, 'login_admin.html', context)
     else:
         form = LoginForm()
         context = {'form':form}
-    return render(request, "login.html", context)
+    return render(request, "login_admin.html", context)

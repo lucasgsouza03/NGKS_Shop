@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
     'core',
     'SGU',
     'catalogo',
@@ -120,9 +121,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 #login 
 AUTH_USER_MODEL = 'SGU.Usuario'
-
-LOGIN_REDIRECT_URL = 'principal'
-LOGOUT_REDIRECT_URL = 'sgu:login'
 
 #e-mail
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

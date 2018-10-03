@@ -62,8 +62,8 @@ class Usuario(AbstractBaseUser):
         ordering = ['nome']
 
 class Cliente(Usuario):
-    cep = models.IntegerField()
-    cpf = models.IntegerField()
+    cep = models.BigIntegerField()
+    cpf = models.BigIntegerField()
 
 class Grupos(models.Model):
     nome = models.CharField(max_length=50)

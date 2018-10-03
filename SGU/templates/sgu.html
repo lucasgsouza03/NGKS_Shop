@@ -8,14 +8,32 @@
     <br><br><br>
     <form method="POST">
         {% csrf_token %}
+        <h2>Usuários Internos</h2>
         <table style="border: 1px solid black; padding: 2px">
             <tr style="border: 1px solid black;">
                 <th style="border: 1px solid black;">Nome</th> <th style="border: 1px solid black;"> Username </th><th style="border: 1px solid black;"> E-Mail </th> <th style="border: 1px solid black;"> Deletar </th><th style="border: 1px solid black;"> Editar </th>
             </tr>
             {% for i in users %}
+            {% if i.tipo == 'E' %}
                 <tr style="border: 1px solid black;">
                     <td style="border: 1px solid black;">{{ i.nome }}</td> <td style="border: 1px solid black;"> {{ i.username }} </td><td style="border: 1px solid black;"> {{ i.email }} </td> <td style="border: 1px solid black;"> <button type="submit" name="delete" value="{{ i.id }}">Delete</button>  </td><td style="border: 1px solid black;"><a href="{{ i.get_absolute_url }}">Editar</a></td>
                 </tr>
+            {% endif %}
+            {% endfor %}
+        </table>
+        <br>
+        <br>
+        <h2>Clientes</h2>
+        <table style="border: 1px solid black; padding: 2px">
+            <tr style="border: 1px solid black;">
+                <th style="border: 1px solid black;">Nome</th> <th style="border: 1px solid black;"> Username </th><th style="border: 1px solid black;"> E-Mail </th> <th style="border: 1px solid black;"> Deletar </th><th style="border: 1px solid black;"> Editar </th>
+            </tr>
+            {% for i in users %}
+            {% if i.tipo == 'C' %}
+                <tr style="border: 1px solid black;">
+                    <td style="border: 1px solid black;">{{ i.nome }}</td> <td style="border: 1px solid black;"> {{ i.username }} </td><td style="border: 1px solid black;"> {{ i.email }} </td> <td style="border: 1px solid black;"> <button type="submit" name="delete" value="{{ i.id }}">Delete</button>  </td><td style="border: 1px solid black;"><a href="{{ i.get_absolute_url }}">Editar</a></td>
+                </tr>
+            {% endif %}
             {% endfor %}
         </table>
     </form>
