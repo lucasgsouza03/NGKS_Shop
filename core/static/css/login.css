@@ -1,8 +1,9 @@
 body{
     background-image: url("/static/img/2.jpg");
+    background-attachment: fixed;
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-size: 100% 450%;
 }
 @-ms-viewport{
   width: device-width;
