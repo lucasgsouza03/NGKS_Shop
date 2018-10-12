@@ -6,7 +6,7 @@ from SGU import auth as auth_views
 urlpatterns = [
     url(r'^$', sgu, name='sgu'),
     url(r'^chg_pass/', chg_pass, name='chg_pass'),#verificar essa URL
-    url(r'^(?P<username>[A-Z,a-z,0-9]+)/detalhes', detalhes, name='detalhes'),
+    url(r'^(?P<username>.*)/detalhes', detalhes, name='detalhes'),
     url(r'^cadastro_usuario/', cadastro_usuario, name='cadastro_usuario'),
     url(r'^login_admin/$', loginAdminPanel, name='login'),
     url(r'^logout/', logout, {'next_page': 'sgu:login'} ,name='logout'),
