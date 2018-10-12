@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        {% extends 'base_admin.html' %}
+        {% block title %}  Adicionar produtos  {% endblock %}
+    </head>
+<body>
+{% block main %}
+
+{% block subtitulo %}
+        Adicionar Produto
+{% endblock %}
+
+{% block conteudo2 %}
+
+    <section>
+        <form method="POST">
+            {% csrf_token %}
+            <center>
+            <label class="control-label">Nome</label>
+            <input type="text" name="nome" required="" class="form-control"><br>
+
+            <label class="control-label">Identificador</label>
+            <input type="text" name="slug" required="" class="form-control"><br>
+
+            <label class="control-label">Categoria</label>
+            <select name="categoria" required="" class="form-control">
+                <option value="">---------</option>
+                {% for i in categorias %}
+                <option value="{{ i.id }}">{{ i.nome }}</option>
+                {% endfor %}
+            </select><br>
+            <label class="control-label">Descrição</label>
+            <textarea name="descricao" cols="40" rows="10" class="form-control"></textarea><br>
+            
+            <label class="control-label">Preço</label>
+            <input name="price" step="0.01" required="" type="number" class="form-control" placeholder="R$ 0,00" ><br>
+            
+            <button type="submit" name="button" value="update" class="btn btn-outline btn-primary" >Cadastrar</button>&ensp;&ensp;&ensp;&ensp;
+            <button class="btn btn-outline btn-danger" onclick="goBack()">Cancelar</button>
+            </center>
+        </form>
+    </section>
+{% endblock %}    
+{% endblock %}
+
+
+</body>
+</html>

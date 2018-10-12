@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/static/css/erro_acesso.css">
+        <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico">
+        <title>Ooops.!</title>
+</head>
+<body>
+
+    {% load static %}
+	<br>
+    <img src="{% static 'img/you-shall-not-pass.jpg' %}" alt="Não deu certo ¯\_(ツ)_/¯"><br>
+    <center>Ooops.!</center>
+    <center><p>Parece que você não tem permissão para estar aqui... ¯\_(ツ)_/¯ </p></center><br>
+    <center><a href="/principal"><button class="btn btn-default" > Voltar </button> </a></center>
+
+</body>
+</html>
+
