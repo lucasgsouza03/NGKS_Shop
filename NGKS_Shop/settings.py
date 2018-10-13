@@ -81,9 +81,9 @@ WSGI_APPLICATION = 'NGKS_Shop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ngks',
+        'NAME': 'ngks_shop',
         'USER': 'root',
-        'PASSWORD': 'ryt211196',
+        'PASSWORD': 'Z3ld4100%',
         'HOST': 'localhost',
         'PORT': '3306',
     }
