@@ -33,7 +33,7 @@ urlpatterns = [
     #administrativo
     url(r'^principal/$', principal, name='principal'),
     url(r'^sgu/', include(('SGU.urls', 'sgu'), namespace='sgu')),
-    url(r'^estoque/$', estoque, name='estoque'),
+    url(r'^estoque/', include(('estoque.urls', 'estoque'), namespace='estoque')),
     url(r'^fluxo/$', fluxo, name='fluxo'),
     url(r'^pedidos/$', pedidos, name='pedidos'),
     url(r'^catalogo/', include(('catalogo.urls', 'catalogo'), namespace='catalogo')),

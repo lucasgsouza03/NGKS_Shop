@@ -184,11 +184,20 @@
 				</a>
 
 				<div class="topbar-child2">
-					<span class="topbar-email">
-						fashe@example.com
-					</span>	&ensp;&ensp;
-            {% if user.is_authenticated %}
-              <li><a href="{% url 'logout' %}">Sair</a> </li>
+					
+			{% if user.is_authenticated %}
+					{% if user.tipo == 'E' %}
+						<span class="topbar-email">
+							{{ user }}
+						</span>	&ensp;&ensp;
+						<li><a href="{% url 'principal' %}">Admin</a> </li>&ensp;&ensp;
+						<li><a href="{% url 'logout' %}">Sair</a> </li>
+					{% else %}
+						<span class="topbar-email">
+							{{ user }}
+						</span>	&ensp;&ensp;
+						<li><a href="{% url 'logout' %}">Sair</a> </li>
+					{% endif %}
             {% else %}
               <li><a href="{% url 'loginEcommerce' %}">Entrar</a> </li>
             {% endif %}						

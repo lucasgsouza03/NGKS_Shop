@@ -1,4 +1,4 @@
-from catalogo.models import Categoria, Produto
+from catalogo.models import Categoria, Produto, Materia
 
 class Gerencia_categoria():
     def Cria_categoria(request):
@@ -38,3 +38,16 @@ class Gerencia_produto():
 
     def Deleta_produto(delete):
         Produto.objects.get(id=delete).delete()
+
+class Gerencia_materia():
+    
+    def Atualiza_materia(request, slug):
+        nome = request.POST.get("nome")
+        descricao = request.POST.get("descricao")
+        materia = Materia.objects.get(slug=slug)
+        materia.nome = nome
+        materia.descricao = descricao
+        materia.save()
+
+    def Deleta_materia(delete):
+        Materia.objects.get(id=delete).delete()

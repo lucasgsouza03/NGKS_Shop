@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'core',
     'SGU',
     'catalogo',
+    'estoque',
     'bootstrap3',
 ]
 
@@ -58,7 +59,7 @@ ROOT_URLCONF = 'NGKS_Shop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
