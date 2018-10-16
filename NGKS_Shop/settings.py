@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'core',
     'SGU',
     'catalogo',
-    'bootstrap3',
+    'checkout',
 ]
 
 MIDDLEWARE = [
@@ -81,22 +81,15 @@ WSGI_APPLICATION = 'NGKS_Shop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ngks_shop',
+        'NAME': 'NGKS_Shop',
         'USER': 'root',
         'PASSWORD': 'Z3ld4100%',
         'HOST': 'localhost',
         'PORT': '3306',
     }
 }
-"""
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-"""
+
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
@@ -137,3 +130,4 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'lmsimpacta@gmail.com'
 EMAIL_HOST_PASSWORD = '@impacta123'
 EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = 'lmsimpacta@gmail.com'
