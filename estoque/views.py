@@ -34,9 +34,11 @@ def cadastro_fornecedor(request):
     if request.method == 'POST':
         form = cadastrar_fornecedor(request.POST)    
         if form.is_valid():
+            print("forms válido")
             form.save()
-            return HttpResponseRedirect(reverse('estoque:fornecedor'))
+            return HttpResponseRedirect(reverse('estoque:fornecedores'))
         else:
+            print("forms inválido")
             return HttpResponseRedirect(reverse('estoque:cadastro_fornecedor'))
     contexto= {
         'form':cadastrar_fornecedor()

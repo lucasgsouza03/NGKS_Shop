@@ -7,7 +7,7 @@ class fornecedor(models.Model):
     nome = models.CharField('Fornecedor', max_length=100)
     slug = models.SlugField('Identificador', max_length=100, default='forn')
     tipo = models.CharField('Tipo de fornecedor', max_length=100)
-    cnpj = models.IntegerField('CNPJ')
+    cnpj = models.BigIntegerField('CNPJ')
     email = models.CharField('E-mail',max_length=100, unique=True)
     telefone = models.IntegerField('Telefone')
 
