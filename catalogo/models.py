@@ -23,8 +23,9 @@ class Categoria(models.Model):
 
 class Produto(models.Model):
     nome = models.CharField('Nome', max_length=100)
-    slug = models.SlugField('Identificados', max_length=100, unique=True)
+    slug = models.SlugField('Identificador', max_length=100, unique=True)
     categoria = models.ForeignKey('catalogo.Categoria', verbose_name='Categoria', on_delete=models.CASCADE)
+
     descricao = models.TextField('Descrição', blank=True)
     price = models.DecimalField('Preço', decimal_places=2, max_digits=8)
     criado = models.DateTimeField('Criado em', auto_now_add=True)

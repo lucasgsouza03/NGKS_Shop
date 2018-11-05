@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .forms import cadastrar_fornecedor
-from src.estoque import Gerencia_fornecedor
+from .forms import *
+from src.estoque import *
 from src.usuario import Gerencia_permissao
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
-from .models import fornecedor
+from .models import *
 
 # Create your views here.
 
@@ -34,11 +34,9 @@ def cadastro_fornecedor(request):
     if request.method == 'POST':
         form = cadastrar_fornecedor(request.POST)    
         if form.is_valid():
-            print("forms válido")
             form.save()
             return HttpResponseRedirect(reverse('estoque:fornecedores'))
         else:
-            print("forms inválido")
             return HttpResponseRedirect(reverse('estoque:cadastro_fornecedor'))
     contexto= {
         'form':cadastrar_fornecedor()
@@ -62,4 +60,44 @@ def fornecedor_detalhes(request, slug):
         }
     return render(request, 'fornecedor_detalhes.html', contexto)
 
+@login_required(login_url='sgu:login')
+@user_passes_test(check_estoque, login_url='sgu:erro_acesso', redirect_field_name=None)
+def estoque_produtos(request):
+    contexto = {
+        'produtos': estoque_produto.objects.all(),
+    }
+    delete = request.POST.get("delete")
+    if delete:
+        Gerencia_produto.Deleta_produto(delete)
+    return render(request, "estoque_produtos.html", contexto)
 
+@login_required(login_url='sgu:login')
+@user_passes_test(check_estoque, login_url='sgu:erro_acesso', redirect_field_name=None)
+def cadastro_produto(request):
+    if request.method == 'POST':
+        form = cadastrar_produto(request.POST, request.FILES)    
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('estoque:estoque_produtos'))
+        else:
+            return HttpResponseRedirect(reverse('estoque:cadastro_produto'))
+    contexto= {
+        'form':cadastrar_produto()
+    }
+    return render(request, "cadastro_produto.html", contexto)
+
+@login_required(login_url='sgu:login')
+@user_passes_test(check_estoque, login_url='sgu:erro_acesso', redirect_field_name=None)
+def produto_detalhes(request, slug):
+    if request.method == 'POST':
+        button = request.POST.get("button")
+        Gerencia_produto.Atualiza_produto(request, slug)
+        if button == "update_continue":
+            return HttpResponseRedirect(reverse('estoque:produto_detalhes', kwargs={'slug':slug}))
+        elif button == "update":
+            return HttpResponseRedirect(reverse('estoque:estoque_produto'))
+    else:
+        contexto = {
+            'produto': estoque_produto.objects.get(slug=slug)
+        }
+    return render(request, 'estoque_produto_detalhes.html', contexto)

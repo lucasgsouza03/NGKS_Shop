@@ -1,4 +1,4 @@
-from estoque.models import fornecedor
+from estoque.models import *
 
 class Gerencia_fornecedor():
 
@@ -17,3 +17,49 @@ class Gerencia_fornecedor():
         forn.email = email
         forn.telefone = telefone
         forn.save()
+
+class Gerencia_produto():
+
+    def Deleta_produto(delete):
+        estoque_produto.objects.get(id=delete).delete()
+    
+    def Atualiza_produto(request, slug):
+        produto = request.POST.get("produto")
+        slug = request.POST.get("slug")
+        imagem = request.FILE.get("imagem")
+        cor = request.POST.get("cor")
+        tamanho = request.POST.get("tamanho")
+        quantidade = request.POST.get("quantidade")
+
+        p = estoque_produto.objects.get(slug=slug)
+        p.produto = produto
+        p.slug = slug
+        p.imagem = imagem
+        p.cor = cor
+        p.tamanho = tamanho
+        p.quantidade = quantidade
+        p.save()
+
+class Gerencia_materia():
+
+    def Deleta_produto(delete):
+        estoque_materia_prima.objects.get(id=delete).delete()
+    
+    def Atualiza_produto(request, slug):
+        materia_prima = request.POST.get("materia_prima")
+        slug = request.POST.get("slug")
+        imagem = request.FILE.get("imagem")
+        cor = request.POST.get("cor")
+        tamanho = request.POST.get("tamanho")
+        fornecedor = request.POST.get("fornecedor")
+        quantidade = request.POST.get("quantidade")
+
+        m = estoque_materia_prima.objects.get(slug=slug)
+        m.produto = produto
+        m.slug = slug
+        m.imagem = imagem
+        m.cor = cor
+        m.tamanho = tamanho
+        m.fornecedor = fornecedor
+        m.quantidade = quantidade
+        m.save()

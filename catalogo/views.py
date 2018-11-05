@@ -74,7 +74,7 @@ def produtos(request):
 @user_passes_test(check_catalogo, login_url='sgu:erro_acesso', redirect_field_name=None)
 def adiciona_produto(request):
     if request.method == 'POST':
-        form = cadastrar_produto(request.POST)
+        form = cadastrar_produto(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('catalogo:produtos'))

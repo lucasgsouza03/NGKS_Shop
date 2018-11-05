@@ -17,6 +17,9 @@ from django.conf.urls import url, include
 from core.views import *
 from django.contrib.auth.views import logout, password_reset, password_reset_done, password_reset_confirm, password_reset_complete
 
+from django.conf import settings
+from django.views.static import serve
+
 urlpatterns = [
     #ecommerce
     url(r'^$', index, name='index'),
@@ -38,3 +41,8 @@ urlpatterns = [
     url(r'^pedidos/$', pedidos, name='pedidos'),
     url(r'^catalogo/', include(('catalogo.urls', 'catalogo'), namespace='catalogo')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += [
+        url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    ]

@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from catalogo.views import *
 
+
 urlpatterns = [
     url(r'^$', catalogo, name='catalogo'),
     url(r'categorias/$', categorias, name='categorias'),
