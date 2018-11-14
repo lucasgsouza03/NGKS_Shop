@@ -17,6 +17,9 @@ from django.conf.urls import url, include
 from core.views import *
 from django.contrib.auth.views import logout
 
+from django.conf import settings
+from django.views.static import serve
+
 urlpatterns = [
     #ecommerce
     url(r'^$', index, name='index'),
@@ -31,8 +34,13 @@ urlpatterns = [
     #administrativo
     url(r'^principal/$', principal, name='principal'),
     url(r'^sgu/', include(('SGU.urls', 'sgu'), namespace='sgu')),
-    url(r'^estoque/$', estoque, name='estoque'),
+    url(r'^estoque/', include(('estoque.urls', 'estoque'), namespace='estoque')),
     url(r'^fluxo/$', fluxo, name='fluxo'),
     url(r'^pedidos/$', pedidos, name='pedidos'),
     url(r'^catalogo/', include(('catalogo.urls', 'catalogo'), namespace='catalogo')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += [
+        url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    ]

@@ -37,14 +37,27 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
+    #Libs
+    'widget_tweaks',
+    'bootstrap3',
+    'easy_thumbnails',
+    #apps
+    'core',
+=======
     #libs
     'bootstrap3',
     'widget_tweaks',
     #apps
+>>>>>>> master
     'SGU',
     'core',
     'catalogo',
+<<<<<<< HEAD
+    'estoque',
+=======
     'checkout',
+>>>>>>> master
 ]
 
 MIDDLEWARE = [
@@ -64,7 +77,7 @@ ROOT_URLCONF = 'NGKS_Shop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -139,6 +152,18 @@ STATIC_URL = '/static/'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
+<<<<<<< HEAD
+EMAIL_HOST_USER = 'lmsimpacta@gmail.com'
+EMAIL_HOST_PASSWORD = '@impacta123'
+EMAIL_PORT = 587
+
+# Thumbnails
+THUMBNAIL_ALIASES = {
+    '': {
+        'imagem_produto': {'size': (200, 250), 'crop': True},
+    },
+}
+=======
 EMAIL_HOST_USER = 'allan.turatti@gmail.com'
 EMAIL_HOST_PASSWORD = 'Alnmrt132@'
 EMAIL_PORT = 587
@@ -163,3 +188,4 @@ MESSAGE_TAGS = {
 PAGSEGURO_TOKEN = 'FBC0605AB7D44E0091DF25007031ECAC'
 PAGSEGURO_EMAIL= 'allan.turatti@gmail.com'
 PAGSEGURO_SANDBOX = True
+>>>>>>> master
