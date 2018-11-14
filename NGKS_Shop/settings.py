@@ -37,27 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
-    #Libs
-    'widget_tweaks',
-    'bootstrap3',
-    'easy_thumbnails',
-    #apps
-    'core',
-=======
     #libs
     'bootstrap3',
     'widget_tweaks',
     #apps
->>>>>>> master
     'SGU',
     'core',
     'catalogo',
-<<<<<<< HEAD
-    'estoque',
-=======
     'checkout',
->>>>>>> master
 ]
 
 MIDDLEWARE = [
@@ -103,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'NGKS_Shop',
         'USER': 'root',
-        'PASSWORD': 'senha123',
+        'PASSWORD': 'Z3ld4100%',
         'HOST': 'localhost',
         'PORT': '3306',
     }
