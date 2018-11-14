@@ -101,3 +101,46 @@ def produto_detalhes(request, slug):
             'produto': estoque_produto.objects.get(slug=slug)
         }
     return render(request, 'estoque_produto_detalhes.html', contexto)
+
+
+@login_required(login_url='sgu:login')
+@user_passes_test(check_estoque, login_url='sgu:erro_acesso', redirect_field_name=None)
+def estoque_materia(request):
+    contexto = {
+        'materia': estoque_materia_prima.objects.all(),
+    }
+    delete = request.POST.get("delete")
+    if delete:
+        Gerencia_materia.Deleta_materia(delete)
+    return render(request, "estoque_materia.html", contexto)
+
+@login_required(login_url='sgu:login')
+@user_passes_test(check_estoque, login_url='sgu:erro_acesso', redirect_field_name=None)
+def cadastro_materia(request):
+    if request.method == 'POST':
+        form = cadastrar_materia(request.POST, request.FILES)    
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('estoque:estoque_materia'))
+        else:
+            return HttpResponseRedirect(reverse('estoque:cadastro_materia'))
+    contexto= {
+        'form':cadastrar_materia()
+    }
+    return render(request, "cadastro_materia.html", contexto)
+
+@login_required(login_url='sgu:login')
+@user_passes_test(check_estoque, login_url='sgu:erro_acesso', redirect_field_name=None)
+def materia_detalhes(request, slug):
+    if request.method == 'POST':
+        button = request.POST.get("button")
+        Gerencia_materia.Atualiza_materia(request, slug)
+        if button == "update_continue":
+            return HttpResponseRedirect(reverse('estoque:materia_detalhes', kwargs={'slug':slug}))
+        elif button == "update":
+            return HttpResponseRedirect(reverse('estoque:estoque_materia'))
+    else:
+        contexto = {
+            'materia': estoque_materia_prima.objects.get(slug=slug)
+        }
+    return render(request, 'estoque_materia_detalhes.html', contexto)

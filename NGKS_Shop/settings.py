@@ -36,12 +36,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #Libs
     'widget_tweaks',
+    'bootstrap3',
+    'easy_thumbnails',
+    #apps
     'core',
     'SGU',
     'catalogo',
     'estoque',
-    'bootstrap3',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +141,10 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'lmsimpacta@gmail.com'
 EMAIL_HOST_PASSWORD = '@impacta123'
 EMAIL_PORT = 587
+
+# Thumbnails
+THUMBNAIL_ALIASES = {
+    '': {
+        'imagem_produto': {'size': (200, 250), 'crop': True},
+    },
+}

@@ -42,10 +42,10 @@ class Gerencia_produto():
 
 class Gerencia_materia():
 
-    def Deleta_produto(delete):
+    def Deleta_materia(delete):
         estoque_materia_prima.objects.get(id=delete).delete()
     
-    def Atualiza_produto(request, slug):
+    def Atualiza_materia(request, slug):
         materia_prima = request.POST.get("materia_prima")
         slug = request.POST.get("slug")
         imagem = request.FILE.get("imagem")

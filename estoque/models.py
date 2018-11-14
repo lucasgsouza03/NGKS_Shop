@@ -29,8 +29,8 @@ class estoque_materia_prima(models.Model):
     def __str__(self):
         return self.materia_prima
     
-    #def get_absolute_url(self):
-    #    return reverse('estoque:materia_detalhes', kwargs={'slug':self.slug}) 
+    def get_absolute_url(self):
+        return reverse('estoque:materia_detalhes', kwargs={'slug':self.slug}) 
 
 
 
