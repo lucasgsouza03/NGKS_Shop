@@ -139,18 +139,6 @@ STATIC_URL = '/static/'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-<<<<<<< HEAD
-EMAIL_HOST_USER = 'lmsimpacta@gmail.com'
-EMAIL_HOST_PASSWORD = '@impacta123'
-EMAIL_PORT = 587
-
-# Thumbnails
-THUMBNAIL_ALIASES = {
-    '': {
-        'imagem_produto': {'size': (200, 250), 'crop': True},
-    },
-}
-=======
 EMAIL_HOST_USER = 'allan.turatti@gmail.com'
 EMAIL_HOST_PASSWORD = 'Alnmrt132@'
 EMAIL_PORT = 587
@@ -175,4 +163,3 @@ MESSAGE_TAGS = {
 PAGSEGURO_TOKEN = 'FBC0605AB7D44E0091DF25007031ECAC'
 PAGSEGURO_EMAIL= 'allan.turatti@gmail.com'
 PAGSEGURO_SANDBOX = True
->>>>>>> master
