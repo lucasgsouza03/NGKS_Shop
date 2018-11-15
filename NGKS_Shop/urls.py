@@ -15,7 +15,7 @@ Including another pathconf
 """
 from django.conf.urls import url, include
 from core.views import *
-from django.contrib.auth.views import logout
+from django.contrib.auth.views import logout, password_reset, password_reset_done, password_reset_confirm, password_reset_complete
 
 from django.conf import settings
 from django.views.static import serve
@@ -26,11 +26,13 @@ urlpatterns = [
     url(r'^lista_produtos/', lista_produtos, name='lista_produtos'),
     url(r'^categoria/(?P<slug>[\w_-]+)/$', loja_categoria, name='loja_categoria'),
     url(r'^produtos/(?P<slug>[\w_-]+)/$', loja_produto, name='loja_produto'),
-    url(r'^registro/', registro, name='cadastro_cliente'),
+    url(r'^registro/', registro, name='registro'),
     url(r'^login/$', loginEcommerce, name='loginEcommerce'),
     url(r'^logout/$', logout, {'next_page': 'index'} ,name='logout'),
-    url(r'^contato/$', contato,name='contato'),
-    url(r'^checkout/', include(('checkout.urls', 'checkout'), namespace='checkout')),
+    url(r'^password_reset/$', password_reset, {'subject_template_name': 'password_reset_subject.txt'}, name='password_reset'),
+    url(r'^password_reset/done/$', password_reset_done, name='password_reset_done'),
+    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', password_reset_confirm, name='password_reset_confirm'),
+    url(r'^reset/done/$', password_reset_complete, name='password_reset_complete'),
     #administrativo
     url(r'^principal/$', principal, name='principal'),
     url(r'^sgu/', include(('SGU.urls', 'sgu'), namespace='sgu')),

@@ -1,17 +1,25 @@
 {% extends "base.html" %}
-{% load pagination %}
 
 {% block tittle %} {{ categoria_corrente }} | {{ block.super }} {% endblock %}
 
-{% block pagina %}
+{% block container %}
 <div class="page-header">
     <h1>{{ categoria_corrente }}</h1>
 </div>
 <div class="row">
     {% for produto in lista_produtos %}
-    {% include "catalogo_produto.html" %}
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <a href="{{ produto.get_store_url }}">
+                    <img src="http://placehold.it/350x250" alt="" />
+                </a>
+                <div class="caption">
+                    <h3>{{ produto.nome }}</h3>
+                    <p>{{ produto.descricao }}</p>
+                    <p><a href="{{ produto.get_store_url }}" class="btn btn-success" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                </div>
+            </div>
+        </div>
     {% endfor %}
 </div>
-
-{% pagination request paginator page_obj %}
 {% endblock %}
