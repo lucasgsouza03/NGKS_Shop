@@ -10,6 +10,7 @@
                     
     <form method="POST">
         {% csrf_token %}
+        <h3>{{ categoria.username }}</h3>
         <br><center>
             <label class="control-label">Nome</label>
             <input type="text" value="{{ produto.nome }}" name="nome"class="form-control"><br>

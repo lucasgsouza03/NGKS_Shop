@@ -14,12 +14,14 @@
 {% endblock %}
 
 {% block conteudo2 %}
-{% load bootstrap3 %}
     <section>
         <form method="POST">
             {% csrf_token %}
             <center>
-            {% bootstrap_form form %}<br>
+            <label class="control-label">Nome</label>
+            <input type="text" name="nome" required="" class="form-control"><br>
+            <label class="control-label">Identificador</label>
+            <input type="text" name="slug" required="" class="form-control"><br><br><br>
             <button type="submit" name="button" value="update" class="btn btn-outline btn-primary" >Cadastrar</button>&emsp;
             <button class="btn btn-outline btn-danger" onclick="goBack()">Cancelar</button>
             </center>
