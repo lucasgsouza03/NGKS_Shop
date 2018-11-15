@@ -64,7 +64,7 @@ ROOT_URLCONF = 'NGKS_Shop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -90,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'NGKS_Shop',
         'USER': 'root',
-        'PASSWORD': 'Z3ld4100%',
+        'PASSWORD': 'senha123',
         'HOST': 'localhost',
         'PORT': '3306',
     }

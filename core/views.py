@@ -21,6 +21,9 @@ from django.contrib import messages
 
 # Create your views here.
 
+def check_estoque(request):
+    return 'ESTOQUE' in Gerencia_permissao.Pega_grupo(request)
+
 def check_fluxo(request):
     return 'FLUXO' in Gerencia_permissao.Pega_grupo(request)
 
@@ -105,6 +108,11 @@ def contato(request):
 @user_passes_test(check_empresa, login_url='sgu:erro_acesso', redirect_field_name=None)
 def principal(request):
     return render(request, "principal.html")
+
+@login_required(login_url='sgu:login')
+@user_passes_test(check_estoque, login_url='sgu:erro_acesso', redirect_field_name=None)
+def estoque(request):
+    return render(request, "estoque.html")
 
 @login_required(login_url='sgu:login')
 @user_passes_test(check_fluxo, login_url='sgu:erro_acesso', redirect_field_name=None)

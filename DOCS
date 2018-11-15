@@ -1,5 +1,3 @@
-use ngks_shop;
-
 insert into SGU_grupos (nome, link) values ('SGU','/sgu');
 insert into SGU_grupos (nome, link) values ('ESTOQUE','/estoque');
 insert into SGU_grupos (nome, link) values ('FLUXO','/fluxo');
