@@ -204,6 +204,7 @@
                                                 <th> Identificador </th>
                                                 <th> Categoria </th>
                                                 <th> Criado em </th>
+                                                <th> Modificado em </th>
                                                 <th> Deletar </th>
                                                 <th> Editar </th>
                                             </tr>
@@ -212,6 +213,7 @@
                                         {% for i in produtos %}
                                             <td>{{ i.nome }}</td> 
                                             <td> {{ i.slug }} </td>
+                                            <td> {{ i.categoria }} </td>
                                             <td> {{ i.criado }} </td>
                                             <td> {{ i.modificado }} </td> 
                                             <td><button type="submit" name="delete" value="{{ i.id }}">Delete</button></td>
