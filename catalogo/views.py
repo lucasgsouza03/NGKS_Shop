@@ -13,9 +13,16 @@ def check_catalogo(request):
     return 'CATALOGO' in Gerencia_permissao.Pega_grupo(request)
 
 @login_required(login_url='sgu:login')
-@user_passes_test(check_catalogo, login_url='sgu:erro_acesso', redirect_field_name=None)
+@user_passes_test(check_catalogo, login_url='erro_acesso', redirect_field_name=None)
 def catalogo(request):
-    return render(request, "catalogo.html")
+    contexto = {
+        'produtos': Produto.objects.all()
+    }
+    delete = request.POST.get("delete")
+    if delete:
+        Gerencia_produto.Deleta_produto(delete)
+    return render(request, "catalogo.html", contexto)
+
 
 @login_required(login_url='sgu:login')
 @user_passes_test(check_catalogo, login_url='sgu:erro_acesso', redirect_field_name=None)
