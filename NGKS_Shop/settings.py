@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'bootstrap3',
     'easy_thumbnails',
+    'paypal.standard.ipn',
     #apps
     'core',
     'SGU',
