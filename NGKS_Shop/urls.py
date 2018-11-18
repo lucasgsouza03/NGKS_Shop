@@ -20,12 +20,15 @@ from django.contrib.auth.views import logout, password_reset, password_reset_don
 from django.conf import settings
 from django.views.static import serve
 
+from catalogo import views as views_catalogo
+from checkout import views as views_checkout
+
 urlpatterns = [
     #ecommerce
     url(r'^$', index, name='index'),
     url(r'^lista_produtos/', lista_produtos, name='lista_produtos'),
-    url(r'^categoria/(?P<slug>[\w_-]+)/$', loja_categoria, name='loja_categoria'),
-    url(r'^produtos/(?P<slug>[\w_-]+)/$', loja_produto, name='loja_produto'),
+    url(r'^categoria/(?P<slug>.*)/$', loja_categoria, name='loja_categoria'),
+    url(r'^produtos/(?P<slug>.*)/$', loja_produto, name='loja_produto'),
     url(r'^registro/', registro, name='registro'),
     url(r'^login/$', loginEcommerce, name='loginEcommerce'),
     url(r'^logout/$', logout, {'next_page': 'index'} ,name='logout'),
@@ -33,6 +36,8 @@ urlpatterns = [
     url(r'^password_reset/done/$', password_reset_done, name='password_reset_done'),
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', password_reset_confirm, name='password_reset_confirm'),
     url(r'^reset/done/$', password_reset_complete, name='password_reset_complete'),
+    url(r'^paypal/', include(('paypal.standard.ipn.urls', 'paypal'), namespace='paypal')),
+    url(r'^compras/', include(('checkout.urls', 'checkout'), namespace='checkout')),
     #administrativo
     url(r'^principal/$', principal, name='principal'),
     url(r'^sgu/', include(('SGU.urls', 'sgu'), namespace='sgu')),
