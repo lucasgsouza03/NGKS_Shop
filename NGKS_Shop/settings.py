@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'SGU',
     'catalogo',
     'estoque',
+    'checkout',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +56,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    'checkout.middleware.cart_item_middleware',
 ]
 
 ROOT_URLCONF = 'NGKS_Shop.urls'
@@ -150,3 +153,24 @@ THUMBNAIL_ALIASES = {
         'imagem_produto': {'size': (200, 250), 'crop': True},
     },
 }
+
+#MESSAGE
+from django.contrib.messages import constants as messages_constants 
+MESSAGE_TAGS = {
+    messages_constants.DEBUG: 'debug',
+    messages_constants.INFO:  'info',
+    messages_constants.SUCCESS:'sucess',
+    messages_constants.WARNING:'warning',
+    messages_constants.ERROR: 'danger',
+}
+
+#PAGSEGURO
+
+PAGSEGURO_TOKEN = 'FBC0605AB7D44E0091DF25007031ECAC'
+PAGSEGURO_EMAIL= 'allan.turatti@gmail.com'
+PAGSEGURO_SANDBOX = True
+
+#PAYPAL
+
+PAYPAL_TEST = True
+PAYPAL_EMAIL= 'allan-mt@hotmail.com'
