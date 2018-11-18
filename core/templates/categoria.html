@@ -1,25 +1,185 @@
 {% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block tittle %} {{ categoria_corrente }} | {{ block.super }} {% endblock %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="/static/images/icons/favicon.png"/>
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/fonts/themify/themify-icons.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/fonts/elegant-font/html-css/style.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor/animate/animate.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor/slick/slick.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor/noui/nouislider.min.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+<!--===============================================================================================-->
+</head>
 
-{% block tittle %} {{ categoria_corrente }} | {{ block.super }} {% endblock %}
 
-{% block container %}
-<div class="page-header">
-    <h1>{{ categoria_corrente }}</h1>
-</div>
-<div class="row">
-    {% for produto in lista_produtos %}
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <a href="{{ produto.get_store_url }}">
-                    <img src="http://placehold.it/350x250" alt="" />
-                </a>
-                <div class="caption">
-                    <h3>{{ produto.nome }}</h3>
-                    <p>{{ produto.descricao }}</p>
-                    <p><a href="{{ produto.get_store_url }}" class="btn btn-success" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+{% block pagina %}
+<section class="parallax0 parallax100" style="background-image: url(/static/images/icons/banner_produto.jpg); background-position: center -29.6146px; height: 50%">
+        <div class="overlay0 p-t-40 p-b-200">
+            <div class="flex-col-c-m p-l-15 p-r-15">
+                <span class="m-text9 p-t-45 fs-20-sm">
+                    {{ categoria_corrente }}
+                </span>
+
+                <h3 class="l-text1 fs-35-sm">
+                    Estampas 2018 !
+                </h3>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Content page -->
+    <section class="bgwhite p-t-55 p-b-65">
+    {% include 'menu_produto.html' %}        
+
+                    <!-- Product -->
+                    <div class="row">
+                        {% for produto in lista_produtos %}
+                        <div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
+                            <!-- Block2 -->
+                            <div class="block2">
+                                <div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
+                                    <img src="https://img.elo7.com.br/product/zoom/10F2018/camiseta-jake-no-bolso-hora-de-aventura-finn.jpg" alt="IMG-PRODUCT">
+
+                                    <div class="block2-overlay trans-0-4">
+                                        <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
+                                            <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
+                                            <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
+                                        </a>
+
+                                        <div class="block2-btn-addcart w-size1 trans-0-4">
+                                            <!-- Button -->
+                                            <a href="/checkout/carrinho/adicionar/{{ produto.slug }}/" class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4" role="button">Adicionar</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="block2-txt p-t-20">
+                                    <a href="{{ produto.get_store_url }}" class="block2-name dis-block s-text3 p-b-5">
+                                        {{ produto.nome }}
+                                    </a>
+
+                                    <span class="block2-price m-text6 p-r-5">
+                                        R$ {{ produto.price }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination flex-m flex-w p-t-26">
+                        <a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>
+                        <a href="#" class="item-pagination flex-c-m trans-0-4">2</a>
+                    </div>
                 </div>
             </div>
         </div>
-    {% endfor %}
-</div>
+    </section>
+    <!-- Container Selection -->
+    <div id="dropDownSelect1"></div>
+    <div id="dropDownSelect2"></div>
+
+
+
+<!--===============================================================================================-->
+    <script type="text/javascript" src="/static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+    <script type="text/javascript" src="/static/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+    <script type="text/javascript" src="/static/vendor/bootstrap/js/popper.js"></script>
+    <script type="text/javascript" src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+    <script type="text/javascript" src="/static/vendor/select2/select2.min.js"></script>
+    <script type="text/javascript">
+        $(".selection-1").select2({
+            minimumResultsForSearch: 20,
+            dropdownParent: $('#dropDownSelect1')
+        });
+
+        $(".selection-2").select2({
+            minimumResultsForSearch: 20,
+            dropdownParent: $('#dropDownSelect2')
+        });
+    </script>
+<!--===============================================================================================-->
+    <script type="text/javascript" src="/static/vendor/daterangepicker/moment.min.js"></script>
+    <script type="text/javascript" src="/static/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+    <script type="text/javascript" src="/static/vendor/slick/slick.min.js"></script>
+    <script type="text/javascript" src="/static/js/slick-custom.js"></script>
+<!--===============================================================================================-->
+    <script type="text/javascript" src="/static/vendor/sweetalert/sweetalert.min.js"></script>
+    <script type="text/javascript">
+        $('.block2-btn-addcart').each(function(){
+            var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+            $(this).on('click', function(){
+                swal(nameProduct, "is added to cart !", "success");
+            });
+        });
+
+        $('.block2-btn-addwishlist').each(function(){
+            var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+            $(this).on('click', function(){
+                swal(nameProduct, "is added to wishlist !", "success");
+            });
+        });
+    </script>
+
+<!--===============================================================================================-->
+    <script type="text/javascript" src="/static/vendor/noui/nouislider.min.js"></script>
+    <script type="text/javascript">
+        /*[ No ui ]
+        ===========================================================*/
+        var filterBar = document.getElementById('filter-bar');
+
+        noUiSlider.create(filterBar, {
+            start: [ 50, 200 ],
+            connect: true,
+            range: {
+                'min': 50,
+                'max': 200
+            }
+        });
+
+        var skipValues = [
+        document.getElementById('value-lower'),
+        document.getElementById('value-upper')
+        ];
+
+        filterBar.noUiSlider.on('update', function( values, handle ) {
+            skipValues[handle].innerHTML = Math.round(values[handle]) ;
+        });
+    </script>
+<!--===============================================================================================-->
+    <script src="/static/js/main.js"></script>
+
+</body>
+</html>
+
 {% endblock %}

@@ -42,7 +42,7 @@
 	<!-- header fixed -->
 	<div class="wrap_header fixed-header2 trans-0-4">
 		<!-- Logo -->
-		<a href="index.html" class="logo">
+		<a href="{% url 'index' %}" class="logo">
 			<img src="/static/images/icons/logo.png" alt="IMG-LOGO">
 		</a>
 
@@ -53,25 +53,24 @@
 					<li>
 						<a href="{% url 'index' %}">Home</a>
 					</li>
+		            <li>
+		            	<a data-toggle="dropdown" href="#"> Categorias <span class="caret"></span></a>
+		            	<ul class="sub_menu">
+		            		{% for categoria in categorias %}
+		            			<li><a href="{{ categoria.get_store_url }}">{{ categoria.nome }}</a></li>
+		            			{% endfor %}
+		            	</ul>					
+		            </li>
 
 					<li>
-						<a href="product.html">Shop</a>
+						<a href="{% url 'lista_produtos' %}">Todos os Produtos</a>
 					</li>
-
-					<li class="sale-noti">
-						<a href="product.html">Sale</a>
-					</li>
-
+					
 					<li>
-						<a href="cart.html">Features</a>
+						<a href="#">Sobre nós</a>
 					</li>
-
 					<li>
-						<a href="about.html">About</a>
-					</li>
-
-					<li>
-						<a href="contact.html">Contato</a>
+						<a href="{% url 'contato' %}" >Contato</a>
 					</li>
 				</ul>
 			</nav>
@@ -79,9 +78,20 @@
 
 		<!-- Header Icon -->
 		<div class="header-icons">
-			<a href="#" class="header-wrapicon1 dis-block">
-				<img src="/static/images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
-			</a>
+
+			<span class="linedivide1"></span>
+		{% if user.is_authenticated %}
+              <a href="{% url 'principal' %}" class="header-wrapicon1 dis-block">
+              	<img src="/static/images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
+              </a>
+              <span class="linedivide1"></span>
+              <li><a href="{% url 'logout' %}" class="s-text7">Sair</a> </li>
+            {% else %}
+              <li><a href="{% url 'loginEcommerce' %}" class="s-text7">Entrar</a> </li>
+              <span class="linedivide1"></span>
+              <li><a href="{% url 'registro' %}" class="s-text7">Não tem conta?</a> </li>
+            {% endif %}				
+
 
 			<span class="linedivide1"></span>
 
@@ -107,38 +117,6 @@
 								</span>
 							</div>
 						</li>
-
-						<li class="header-cart-item">
-							<div class="header-cart-item-img">
-								<img src="/static/images/item-cart-02.jpg" alt="IMG">
-							</div>
-
-							<div class="header-cart-item-txt">
-								<a href="#" class="header-cart-item-name">
-									Converse All Star Hi Black Canvas
-								</a>
-
-								<span class="header-cart-item-info">
-									1 x $39.00
-								</span>
-							</div>
-						</li>
-
-						<li class="header-cart-item">
-							<div class="header-cart-item-img">
-								<img src="/static/images/item-cart-03.jpg" alt="IMG">
-							</div>
-
-							<div class="header-cart-item-txt">
-								<a href="#" class="header-cart-item-name">
-									Nixon Porter Leather Watch In Tan
-								</a>
-
-								<span class="header-cart-item-info">
-									1 x $17.00
-								</span>
-							</div>
-						</li>
 					</ul>
 
 					<div class="header-cart-total">
@@ -148,8 +126,8 @@
 					<div class="header-cart-buttons">
 						<div class="header-cart-wrapbtn">
 							<!-- Button -->
-							<a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-								View Cart
+							<a href="/checkout/carrinho/" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+								Carrinho
 							</a>
 						</div>
 
@@ -171,15 +149,13 @@
 		<div class="container-menu-header-v2 p-t-26">
 			<div class="topbar2">
 				<div class="topbar-social">
-					<a href="#" class="topbar-social-item fa fa-facebook"></a>
-					<a href="#" class="topbar-social-item fa fa-instagram"></a>
-					<a href="#" class="topbar-social-item fa fa-pinterest-p"></a>
-					<a href="#" class="topbar-social-item fa fa-snapchat-ghost"></a>
-					<a href="#" class="topbar-social-item fa fa-youtube-play"></a>
+					<a href="https://www.facebook.com/ngksoficial/" class="topbar-social-item fa fa-facebook"></a>
+					<a href="https://www.instagram.com/ngksoficial/" class="topbar-social-item fa fa-instagram"></a>
+					<a href="https://www.youtube.com/channel/UC-xJmRtOku_jDVMlYXCfYaA" class="topbar-social-item fa fa-youtube-play"></a>
 				</div>
 
 				<!-- Logo2 -->
-				<a href="index.html" class="logo2">
+				<a href="{% url 'index' %}" class="logo2">
 					<img src="/static/images/icons/logo.png" alt="IMG-LOGO">
 				</a>
 
@@ -187,27 +163,29 @@
 					
 			{% if user.is_authenticated %}
 					{% if user.tipo == 'E' %}
-						<span class="topbar-email">
-							{{ user }}
-						</span>	&ensp;&ensp;
-						<li><a href="{% url 'principal' %}">Admin</a> </li>&ensp;&ensp;
-						<li><a href="{% url 'logout' %}">Sair</a> </li>
-					{% else %}
-						<span class="topbar-email">
-							{{ user }}
-						</span>	&ensp;&ensp;
-						<li><a href="{% url 'logout' %}">Sair</a> </li>
-					{% endif %}
-            {% else %}
-              <li><a href="{% url 'loginEcommerce' %}">Entrar</a> </li>
-            {% endif %}						
 					<!--  -->
-					<a href="#" class="header-wrapicon1 dis-block m-l-30">
+					<a href="{% url 'principal' %}" class="header-wrapicon1 dis-block m-l-30">
 						<img src="/static/images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
 					</a>
-
 					<span class="linedivide1"></span>
+						<li><a href="{% url 'principal' %}">Minha conta</a> </li>
+						<span class="linedivide1"></span>
+						<li><a href="{% url 'logout' %}" class="s-text7">Sair</a> </li>
+					{% else %}
+						<span class="topbar-email">
+							Olá {{ user }}
+						</span>
+						<span class="linedivide1"></span>
+						<li><a href="{% url 'logout' %}" class="s-text7">Sair</a> </li>
+					{% endif %}
+            {% else %}
+              <li><a href="{% url 'loginEcommerce' %}" class="s-text7">Entrar</a> </li>
+              <span class="linedivide1"></span>
 
+              <li><a href="{% url 'registro' %}" class="s-text7">Não tem conta?</a> </li>
+            {% endif %}
+
+            <span class="linedivide1"></span>
 					<div class="header-wrapicon2 m-r-13">
 						<img src="/static/images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
 						<span class="header-icons-noti">0</span>
@@ -231,39 +209,6 @@
 									</div>
 								</li>
 
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="/static/images/item-cart-02.jpg" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											Converse All Star Hi Black Canvas
-										</a>
-
-										<span class="header-cart-item-info">
-											1 x $39.00
-										</span>
-									</div>
-								</li>
-
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="/static/images/item-cart-03.jpg" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											Nixon Porter Leather Watch In Tan
-										</a>
-
-										<span class="header-cart-item-info">
-											1 x $17.00
-										</span>
-									</div>
-								</li>
-							</ul>
-
 							<div class="header-cart-total">
 								Total: $75.00
 							</div>
@@ -271,8 +216,8 @@
 							<div class="header-cart-buttons">
 								<div class="header-cart-wrapbtn">
 									<!-- Button -->
-									<a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										View Cart
+									<a href="/checkout/carrinho/" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+										Carrinho
 									</a>
 								</div>
 
@@ -297,25 +242,24 @@
 							<li>
 								<a href="{% url 'index' %}">Home</a>
 							</li>
+		            		<li>
+		            			<a href="#"> Categorias <span class="caret"></span></a>
+		            			<ul class="sub_menu">
+			            		{% for categoria in categorias %}
+		            			<li><a href="{{ categoria.get_store_url }}">{{ categoria.nome }}</a></li>
+		            			{% endfor %}
+		            			</ul>					
+		            		</li>						
 
 							<li>
-								<a href="product.html">Shop</a>
-							</li>
-
-							<li class="sale-noti">
-								<a href="product.html">Sale</a>
-							</li>
-
-							<li>
-								<a href="cart.html">Features</a>
-							</li>
-
-							<li>
-								<a href="about.html">About</a>
+								<a href="{% url 'lista_produtos' %}">Todos os Produtos</a>
 							</li>
 
 							<li>
-								<a href="contact.html">Contato</a>
+								<a href="#">Sobre nós</a>
+							</li>
+							<li>
+								<a href="{% url 'contato' %}" >Contato</a>
 							</li>
 						</ul>
 					</nav>
@@ -331,19 +275,21 @@
 		<!-- Header Mobile -->
 		<div class="wrap_header_mobile">
 			<!-- Logo moblie -->
-			<a href="index.html" class="logo-mobile">
+			<a href="{% url 'index' %}" class="logo-mobile">
 				<img src="/static/images/icons/logo.png" alt="IMG-LOGO">
 			</a>
 
 			<!-- Button show menu -->
+	
 			<div class="btn-show-menu">
 				<!-- Header Icon mobile -->
 				<div class="header-icons-mobile">
-					<a href="#" class="header-wrapicon1 dis-block">
+					{% if user.is_authenticated %}
+					<a href="{% url 'principal' %}" class="header-wrapicon1 dis-block">
 						<img src="/static/images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
 					</a>
-
 					<span class="linedivide2"></span>
+					{% endif %}
 
 					<div class="header-wrapicon2">
 						<img src="/static/images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
@@ -367,38 +313,6 @@
 										</span>
 									</div>
 								</li>
-
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="/static/images/item-cart-02.jpg" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											Converse All Star Hi Black Canvas
-										</a>
-
-										<span class="header-cart-item-info">
-											1 x $39.00
-										</span>
-									</div>
-								</li>
-
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="/static/images/item-cart-03.jpg" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											Nixon Porter Leather Watch In Tan
-										</a>
-
-										<span class="header-cart-item-info">
-											1 x $17.00
-										</span>
-									</div>
-								</li>
 							</ul>
 
 							<div class="header-cart-total">
@@ -408,8 +322,8 @@
 							<div class="header-cart-buttons">
 								<div class="header-cart-wrapbtn">
 									<!-- Button -->
-									<a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										View Cart
+									<a href="/checkout/carrinho/" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+										carrinho
 									</a>
 								</div>
 
@@ -436,59 +350,45 @@
 		<div class="wrap-side-menu" >
 			<nav class="side-menu">
 				<ul class="main-menu">
+					{% if user.is_authenticated %}
 					<li class="item-topbar-mobile p-l-20 p-t-8 p-b-8">
 						<span class="topbar-child1">
-							Free shipping for standard order over $100
+							Olá {{ user.nome }}
 						</span>
 					</li>
+					{% endif %}
 
 					<li class="item-topbar-mobile p-l-20 p-t-8 p-b-8">
-						<div class="topbar-child2-mobile">
-							<span class="topbar-email">
-								fashe@example.com
-							</span>
+						<span class="topbar-child1">
+								{% if user.is_authenticated %}
+								<a href="{% url 'logout' %}" class="topbar-child1">Sair</a>
+                    			{% else %}
+                    			<a href="{% url 'loginEcommerce' %}" class="topbar-child1">Entrar</a><br>
+                    			<a href="{% url 'registro' %}" class="topbar-child1">Não tem conta?</a>
+                    			{% endif %}
+						</span>
+					</li>	
 
-							<div class="topbar-language rs1-select2">
-								<select class="selection-1" name="time">
-									<option>USD</option>
-									<option>EUR</option>
-								</select>
-							</div>
-						</div>
-					</li>
+<li class="item-menu-mobile">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Categorias <span class="caret"></span></a>
+              <ul class="dropdown-menu" style="width: 60%; ">
+                    {% for categoria in categorias %}
+                    <center style="padding-bottom: 10px; padding-top: 10px">
+                      <li><a href="{{ categoria.get_store_url }}">{{ categoria.nome }}</a></li></center>
+                      {% endfor %}
+              </ul>
+					</li>			
 
-					<li class="item-topbar-mobile p-l-10">
-						<div class="topbar-social-mobile">
-							<a href="#" class="topbar-social-item fa fa-facebook"></a>
-							<a href="#" class="topbar-social-item fa fa-instagram"></a>
-							<a href="#" class="topbar-social-item fa fa-pinterest-p"></a>
-							<a href="#" class="topbar-social-item fa fa-snapchat-ghost"></a>
-							<a href="#" class="topbar-social-item fa fa-youtube-play"></a>
-						</div>
+					<li class="item-menu-mobile">
+						<a href="{% url 'lista_produtos' %}">Todos os Produtos</a>
 					</li>
 
 					<li class="item-menu-mobile">
-						<a href="{% url 'index' %}">Home</a>
+						<a href="#">Sobre nós</a>
 					</li>
 
 					<li class="item-menu-mobile">
-						<a href="product.html">Shop</a>
-					</li>
-
-					<li class="item-menu-mobile">
-						<a href="product.html">Sale</a>
-					</li>
-
-					<li class="item-menu-mobile">
-						<a href="cart.html">Features</a>
-					</li>
-
-					<li class="item-menu-mobile">
-						<a href="about.html">About</a>
-					</li>
-
-					<li class="item-menu-mobile">
-						<a href="contact.html">Contato</a>
+						<a href="{% url 'contato' %}" >Contato</a>
 					</li>
 				</ul>
 			</nav>
@@ -499,58 +399,42 @@
 {% endblock %}
 
 	<!-- Footer -->
-	<footer class="bg6 p-t-45 p-b-43 p-l-45 p-r-45">
-		<div class="flex-w p-b-90">
+<footer class="bg6 p-t-45 p-b-43 p-l-45 p-r-45">
+		<div class="flex-w p-b-90" style="
+    padding-bottom: 0px;
+">
 			<div class="w-size6 p-t-30 p-l-15 p-r-15 respon3">
 				<h4 class="s-text12 p-b-30">
-					GET IN TOUCH
+					Converse conosco!
 				</h4>
 
 				<div>
 					<p class="s-text7 w-size27">
-						Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
+						Alguma dúvida? Entre em contato pelo facebook ou através de nosso formulário de contato!
 					</p>
 
 					<div class="flex-m p-t-30">
-						<a href="#" class="fs-18 color1 p-r-20 fa fa-facebook"></a>
-						<a href="#" class="fs-18 color1 p-r-20 fa fa-instagram"></a>
-						<a href="#" class="fs-18 color1 p-r-20 fa fa-pinterest-p"></a>
-						<a href="#" class="fs-18 color1 p-r-20 fa fa-snapchat-ghost"></a>
-						<a href="#" class="fs-18 color1 p-r-20 fa fa-youtube-play"></a>
+						<a href="https://www.facebook.com/ngksoficial/" class="fs-18 color1 p-r-20 fa fa-facebook"></a>
+						<a href="https://www.instagram.com/ngksoficial/" class="fs-18 color1 p-r-20 fa fa-instagram"></a>
+						<a href="https://www.youtube.com/channel/UC-xJmRtOku_jDVMlYXCfYaA" class="fs-18 color1 p-r-20 fa fa-youtube-play"></a>
 					</div>
 				</div>
 			</div>
 
 			<div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
 				<h4 class="s-text12 p-b-30">
-					Categories
+					Categorias
 				</h4>
 
 				<ul>
 					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Men
-						</a>
+						{% for categoria in categorias %}
+						<a href="{{ categoria.get_store_url }}" class="s-text7">
+						{{ categoria.nome }}</a>
 					</li>
-
-					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Women
-						</a>
-					</li>
-
-					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Dresses
-						</a>
-					</li>
-
-					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Sunglasses
-						</a>
-					</li>
+						{% endfor %}
 				</ul>
+
 			</div>
 
 			<div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
@@ -560,26 +444,12 @@
 
 				<ul>
 					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Search
+						<a href= "{% url 'lista_produtos' %}" class="s-text7">
+							Produtos
 						</a>
-					</li>
-
 					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							About Us
-						</a>
-					</li>
-
-					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Contact Us
-						</a>
-					</li>
-
-					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Returns
+						<a href="{% url 'principal' %}" class="s-text7">
+							Minha conta
 						</a>
 					</li>
 				</ul>
@@ -587,25 +457,19 @@
 
 			<div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
 				<h4 class="s-text12 p-b-30">
-					Help
+					Ajuda
 				</h4>
 
 				<ul>
 					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Track Order
+						<a href= "{% url 'contato' %}" class="s-text7">
+							Contato
 						</a>
 					</li>
 
 					<li class="p-b-9">
 						<a href="#" class="s-text7">
-							Returns
-						</a>
-					</li>
-
-					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Shipping
+							Política de troca e devolução
 						</a>
 					</li>
 
@@ -616,35 +480,24 @@
 					</li>
 				</ul>
 			</div>
+			<iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fngksoficial%2F&tabs&width=340&height=181&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="340" height="181" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
 		</div>
 
 		<div class="t-center p-l-15 p-r-15">
-			<a href="#">
+			Pague com<br><br>
+			<a href="https://www.paypal.com">
 				<img class="h-size2" src="/static/images/icons/paypal.png" alt="IMG-PAYPAL">
 			</a>
 
-			<a href="#">
-				<img class="h-size2" src="/static/images/icons/visa.png" alt="IMG-VISA">
-			</a>
-
-			<a href="#">
-				<img class="h-size2" src="/static/images/icons/mastercard.png" alt="IMG-MASTERCARD">
-			</a>
-
-			<a href="#">
-				<img class="h-size2" src="/static/images/icons/express.png" alt="IMG-EXPRESS">
-			</a>
-
-			<a href="#">
-				<img class="h-size2" src="/static/images/icons/discover.png" alt="IMG-DISCOVER">
+			<a href="https://pagseguro.uol.com.br/#rmcl">
+				<img class="h-size2" src="/static/images/icons/pagseguro.png" alt="IMG-PAGSEGURO">
 			</a>
 
 			<div class="t-center s-text8 p-t-20">
-				Copyright © 2018 All rights reserved. | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+				Copyright © 2018 All rights reserved. <br> This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com/wp/template/fashe/" target="_blank">Colorlib fashe</a>
 			</div>
 		</div>
 	</footer>
-
 
 
 	<!-- Back to top -->
@@ -666,7 +519,7 @@
 			<div class="wrap-video-mo-01">
 				<div class="w-full wrap-pic-w op-0-0"><img src="/static/images/icons/video-16-9.jpg" alt="IMG"></div>
 				<div class="video-mo-01">
-					<iframe src="https://www.youtube.com/embed/Nt8ZrWY2Cmk?rel=0&amp;showinfo=0" allowfullscreen></iframe>
+					<iframe src="https://www.youtube.com/embed/_JLxpa6LtUI?rel=0&amp;showinfo=0" allowfullscreen></iframe>
 				</div>
 			</div>
 		</div>
