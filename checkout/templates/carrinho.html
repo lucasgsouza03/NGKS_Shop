@@ -6,7 +6,7 @@
 Carrinho de Compras
 {% endblock %}
 
-{% block pagina %}
+{% block container %}
 <ol class="breadcrumb">
   <li><a href="{% url 'index' %}">Início</a></li>
   <li class="active">Carrinho de Compras</li>
@@ -63,9 +63,9 @@ Carrinho de Compras
                 </tbody>
             </table>
             <p class="text-right">
-                <a href="{% url 'lista_produtos' %}" class="pull-left btn btn-default">Continuar Compras</a>
+                <a href="{% url 'catalogo:lista_produto' %}" class="pull-left btn btn-default">Continuar Compras</a>
                 <button type="submit" class="btn btn-primary" name="button">Atualizar Carrinho</button></li>
-                <a href="#" class="btn btn-success">Finalizar Compra</a>
+                <a href="{% url 'checkout:checkout' %}" class="btn btn-success">Finalizar Compra</a>
             </p>
         </form>
     </div>
