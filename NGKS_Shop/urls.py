@@ -16,12 +16,19 @@ Including another pathconf
 from django.conf.urls import url, include
 from core.views import *
 from django.contrib.auth.views import logout, password_reset, password_reset_done, password_reset_confirm, password_reset_complete
-
+from rest_framework import routers
 from django.conf import settings
 from django.views.static import serve
-
 from catalogo import views as views_catalogo
 from checkout import views as views_checkout
+from api.views import estoqueProdutoViewSet
+
+####################ROTAS########################################
+
+router = routers.DefaultRouter()
+router.register(r'estoque_produtos', estoqueProdutoViewSet)
+
+##################################################################
 
 urlpatterns = [
     #ecommerce
@@ -39,7 +46,7 @@ urlpatterns = [
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', password_reset_confirm, name='password_reset_confirm'),
     url(r'^reset/done/$', password_reset_complete, name='password_reset_complete'),
     url(r'^paypal/', include(('paypal.standard.ipn.urls', 'paypal'), namespace='paypal')),
-    url(r'^compras/', include(('checkout.urls', 'checkout'), namespace='checkout')),
+    #url(r'^compras/', include(('checkout.urls', 'checkout'), namespace='checkout')),
     #administrativo
     url(r'^principal/$', principal, name='principal'),
     url(r'^sgu/', include(('SGU.urls', 'sgu'), namespace='sgu')),
@@ -47,6 +54,9 @@ urlpatterns = [
     url(r'^fluxo/$', fluxo, name='fluxo'),
     url(r'^pedidos/$', pedidos, name='pedidos'),
     url(r'^catalogo/', include(('catalogo.urls', 'catalogo'), namespace='catalogo')),
+    #API
+    url(r'api/', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls')),
 ]
 
 if settings.DEBUG:

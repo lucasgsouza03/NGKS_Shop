@@ -41,12 +41,14 @@ INSTALLED_APPS = [
     'bootstrap3',
     'easy_thumbnails',
     'paypal.standard.ipn',
+    'rest_framework',
     #apps
     'core',
     'SGU',
     'catalogo',
     'estoque',
     'checkout',
+    'api',
 ]
 
 MIDDLEWARE = [
