@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -94,7 +95,7 @@ DATABASES = {
         'NAME': 'ngks_shop',
         'USER': 'root',
         'PASSWORD': 'Z3ld4100%',
-        'HOST': 'localhost',
+        'HOST': 'ngksshop.ctvm1wxpmlex.us-east-1.rds.amazonaws.com',
         'PORT': '3306',
     }
 }
@@ -176,4 +177,4 @@ PAGSEGURO_SANDBOX = True
 #PAYPAL
 
 PAYPAL_TEST = True
-PAYPAL_EMAIL= 'allan-mt@hotmail.com'
+PAYPAL_EMAIL= 'allan.turatti@gmail.com'
