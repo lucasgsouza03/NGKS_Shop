@@ -6,6 +6,7 @@ from src.usuario import Gerencia_permissao
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from .models import *
+from django.views.generic import UpdateView
 
 # Create your views here.
 
@@ -85,7 +86,7 @@ def cadastro_produto(request):
         'form':cadastrar_produto()
     }
     return render(request, "cadastro_produto.html", contexto)
-
+'''
 @login_required(login_url='sgu:login')
 @user_passes_test(check_estoque, login_url='sgu:erro_acesso', redirect_field_name=None)
 def produto_detalhes(request, slug):
@@ -101,7 +102,7 @@ def produto_detalhes(request, slug):
             'produto': estoque_produto.objects.get(slug=slug)
         }
     return render(request, 'estoque_produto_detalhes.html', contexto)
-
+'''
 
 @login_required(login_url='sgu:login')
 @user_passes_test(check_estoque, login_url='sgu:erro_acesso', redirect_field_name=None)
@@ -128,7 +129,7 @@ def cadastro_materia(request):
         'form':cadastrar_materia()
     }
     return render(request, "cadastro_materia.html", contexto)
-
+'''
 @login_required(login_url='sgu:login')
 @user_passes_test(check_estoque, login_url='sgu:erro_acesso', redirect_field_name=None)
 def materia_detalhes(request, slug):
@@ -144,3 +145,17 @@ def materia_detalhes(request, slug):
             'materia': estoque_materia_prima.objects.get(slug=slug)
         }
     return render(request, 'estoque_materia_detalhes.html', contexto)
+'''
+
+class updateEstoqueProduto(UpdateView):
+    model = estoque_produto
+    template_name = 'estoque_produto_detalhes.html'
+    fields = ['produto', 'imagem', 'cor', 'tamanho']
+
+class updateEstoqueMateria(UpdateView):
+    model = estoque_materia_prima
+    template_name = 'estoque_materia_detalhes.html'
+    fields = ['materia_prima', 'imagem', 'cor', 'tamanho', 'fornecedor']
+
+produto_detalhes = updateEstoqueProduto.as_view()
+materia_detalhes = updateEstoqueMateria.as_view()

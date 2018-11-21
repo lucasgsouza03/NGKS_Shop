@@ -95,7 +95,7 @@ DATABASES = {
         'NAME': 'ngks_shop',
         'USER': 'root',
         'PASSWORD': 'Z3ld4100%',
-        'HOST': 'ngksshop.ctvm1wxpmlex.us-east-1.rds.amazonaws.com',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
@@ -142,6 +142,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 #login 
 AUTH_USER_MODEL = 'SGU.Usuario'
+LOGIN_URL = 'loginEcommerce'
+LOGOUT_URL = 'sgu:logout'
 
 #e-mail
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
