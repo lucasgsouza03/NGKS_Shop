@@ -14,8 +14,6 @@ from django.urls import reverse
 from django.shortcuts import redirect
 from catalogo.models import Produto
 from .models import CartItem, Pedido
-from django.http import HttpResponse
-from django.conf import settings
 
 # Create your views here.
 
@@ -145,7 +143,7 @@ class PaypalView(LoginRequiredMixin, TemplateView):
             reverse('checkout:lista_pedido')
         )
         paypal_dict['notify_url'] = self.request.build_absolute_uri(
-            reverse('paypal-ipn')
+            reverse('paypal:paypal-ipn')
         )
         context['form'] = PayPalPaymentsForm(initial=paypal_dict)
         return context
@@ -175,7 +173,7 @@ def pagseguro_notification(request):
 
 def paypal_notification(sender, **kwargs):
     ipn_obj = sender
-    if ipn_obj.payment_status == ST_PP_COMPLETED and \
+    if ipn_obj.payement_status == ST_PP_COMPLETED and \
         ipn_obj.receiver_email == settings.PAYPAL_EMAIL:
         try:
             order = Pedido.objects.get(pk=ipn_obj.invoice)
