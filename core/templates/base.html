@@ -10,8 +10,7 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 ga('create', 'UA-128580397-1', 'auto');
 ga('send', 'pageview');
 </script>
-<!-- End Google Analytics -->	
-	
+<!-- End Google Analytics -->		
 	<title>
 		{% block tittle %}
 
@@ -177,8 +176,7 @@ ga('send', 'pageview');
 					<!--  -->
 					<a href="{% url 'principal' %}" class="header-wrapicon1 dis-block m-l-30">
 						<img src="/static/images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
-					</a>
-					<span class="linedivide1"></span>
+					</a>&nbsp;&nbsp;&nbsp;
 						<li><a href="{% url 'principal' %}">Minha conta</a> </li>
 						<span class="linedivide1"></span>
 						<li><a href="{% url 'logout' %}" class="s-text7">Sair</a> </li>
@@ -421,7 +419,7 @@ ga('send', 'pageview');
 
 				<div>
 					<p class="s-text7 w-size27">
-						Alguma dúvida? Entre em contato pelo facebook ou através de nosso formulário de contato!
+						Alguma dúvida? Entre em contato pelo facebook ou através de nosso formulário de <a href= "{% url 'contato' %}"  target="_blank">contato!</a> 
 					</p>
 
 					<div class="flex-m p-t-30">
@@ -495,7 +493,7 @@ ga('send', 'pageview');
 		</div>
 
 		<div class="t-center p-l-15 p-r-15">
-			Pague com<br><br>
+			Pague com<br>
 			<a href="https://www.paypal.com">
 				<img class="h-size2" src="/static/images/icons/paypal.png" alt="IMG-PAYPAL">
 			</a>
@@ -505,7 +503,7 @@ ga('send', 'pageview');
 			</a>
 
 			<div class="t-center s-text8 p-t-20">
-				Copyright © 2018 All rights reserved. <br> This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com/wp/template/fashe/" target="_blank">Colorlib fashe</a>
+				Copyright © 2018 All rights reserved. <br> This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com/wp/template/fashe/" target="_blank">Colorlib fashe</a> <br>and modified by AlphaDeveloper
 			</div>
 		</div>
 	</footer>
