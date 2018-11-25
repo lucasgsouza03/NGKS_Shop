@@ -78,7 +78,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'SGU.context_processors.header',
-                'core.context_processors.categorias'
+                'core.context_processors.categorias',
+                'core.context_processors.carrinho',
             ],
         },
     },
@@ -143,7 +144,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 #login 
 AUTH_USER_MODEL = 'SGU.Usuario'
 LOGIN_URL = 'loginEcommerce'
-LOGOUT_URL = 'sgu:logout'
+LOGOUT_URL = 'sgu:logout' 
 
 #e-mail
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -159,6 +160,7 @@ THUMBNAIL_ALIASES = {
         'imagem_produto': {'size': (200, 250), 'crop': True},
     },
 }
+THUMBNAIL_HIGH_RESOLUTION = True
 
 #MESSAGE
 from django.contrib.messages import constants as messages_constants 

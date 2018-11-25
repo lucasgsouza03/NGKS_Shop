@@ -21,7 +21,7 @@ from django.conf import settings
 from django.views.static import serve
 from catalogo import views as views_catalogo
 from checkout import views as views_checkout
-from api.views import estoqueProdutoViewSet
+from api.views import estoqueProdutoViewSet, CreateCartItemView
 from django.contrib import admin
 
 ####################ROTAS########################################
@@ -59,6 +59,7 @@ urlpatterns = [
     #API
     url(r'api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls')),
+    url(r'carrinho/adicionar/(?P<slug>.*)/$', CreateCartItemView.as_view(), name="adicionar_carrinho"),
 ]
 
 if settings.DEBUG:

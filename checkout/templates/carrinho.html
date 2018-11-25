@@ -22,9 +22,6 @@ Carrinho de Compras
             <table class="table table-bordered">
                 <thead>
                     <th>
-                        ID
-                    </th>
-                    <th>
                         Nome
                     </th>
                     <th>
@@ -40,9 +37,6 @@ Carrinho de Compras
                 <tbody>
                     {% for form in formset %}
                     <tr>
-                        <td>
-                            {{ form.instance.produto.pk }}
-                        </td>
                         <td>
                             {{ form.instance.produto }}
                         </td>
