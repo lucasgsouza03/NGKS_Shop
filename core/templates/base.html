@@ -177,7 +177,9 @@ ga('send', 'pageview');
 					<a href="{% url 'principal' %}" class="header-wrapicon1 dis-block m-l-30">
 						<img src="/static/images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
 					</a>&nbsp;&nbsp;&nbsp;
-						<li><a href="{% url 'principal' %}">Minha conta</a> </li>
+						<li ><a href="{% url 'principal' %}" class="s-text7">Minha conta</a> </li>
+						<span class="linedivide1"></span>
+						<li ><a href="{% url 'principal' %}" class="s-text7">Meus pedidos</a> </li>	
 						<span class="linedivide1"></span>
 						<li><a href="{% url 'logout' %}" class="s-text7">Sair</a> </li>
 					{% else %}
