@@ -33,7 +33,11 @@ def check_empresa(request):
     return user.tipo == 'E'
 
 def index(request):
-    return render(request, 'index.html')
+    contexto = {
+    'index' : Produto.objects.all()
+    }
+    
+    return render(request, 'index.html',contexto)
 
 def lista_produtos(request):
     contexto = {
