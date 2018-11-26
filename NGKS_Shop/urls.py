@@ -35,6 +35,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     #ecommerce
     url(r'^$', index, name='index'),
+    url(r'^sobre_nos/$', sobre_nos, name='sobre_nos'),
     url(r'^lista_produtos/', lista_produtos, name='lista_produtos'),
     url(r'^categoria/(?P<slug>.*)/$', loja_categoria, name='loja_categoria'),
     url(r'^produtos/(?P<slug>.*)/$', loja_produto, name='loja_produto'),

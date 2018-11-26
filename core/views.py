@@ -139,3 +139,6 @@ def fluxo(request):
 @user_passes_test(check_pedidos, login_url='sgu:erro_acesso', redirect_field_name=None)
 def pedidos(request):
     return render(request, "pedidos.html")
+
+def sobre_nos(request):
+    return render(request, "sobre_nos.html")
