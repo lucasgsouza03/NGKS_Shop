@@ -10,15 +10,18 @@ Carrinho de Compras
 <ol class="breadcrumb" style="background-color: #ffffff;">
   <li><a href="{% url 'index' %}" style="font-size: 20px">Início</a> > <class="active">Carrinho de Compras</li>
 </ol>
-<div class="page-header">
+
+<div class="carrinho">
+
+<div class="page-header" style="text-align: center;">
     <h1>Carrinho de Compras</h1>
-</div>
+</div><br><br>
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <form class="" action="" method="post">
             {% csrf_token %}
             {{ formset.management_form }}
-            <table class="table table-bordered">
+            <table class="table table-bordered" style="margin-left: 20%; margin-right: 20% ; margin-bottom:5%">
                 <thead>
                     <th>
                         ID
@@ -45,7 +48,7 @@ Carrinho de Compras
                         <td>
                             {{ form.instance.produto }}
                         </td>
-                        <td>
+                        <td class="item-total">
                             R$ {{ form.instance.preco|floatformat:"2" }}
                         </td>
                         <td>
@@ -61,12 +64,21 @@ Carrinho de Compras
                     {% endfor %}
                 </tbody>
             </table>
-            <p class="text-right">
-                <a href="{% url 'lista_produtos' %}" class="pull-left btn btn-default">Continuar Compras</a>
-                <button type="submit" class="btn btn-primary" name="button">Atualizar Carrinho</button></li>
-                <a href="{% url 'checkout:checkout' %}" class="btn btn-success">Finalizar Compra</a>
-            </p>
+<!--
+            <div style="text-align: right; margin-bottom: 5%"><strong>Valor total: </strong> R$ <span class="valorTotal">0</span></div>..-->
+            <span class="size11 bo4 m-r-10" style="margin-left: 20%;margin-bottom: 100px; display: -webkit-box;">
+
+                <a href="{% url 'lista_produtos' %}" class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" style="margin-right: 40px;" >Continuar Compras</a>
+
+                <button type="submit" class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" name="button" style="margin-right: 40px;">Atualizar Carrinho</button>
+
+                <a href="{% url 'checkout:checkout' %}" class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">Finalizar Compra</a>
+            </span>
+
         </form>
     </div>
 </div>
+
+<script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
+<script src="/static/js/carrinho.js"></script>
 {% endblock %}
