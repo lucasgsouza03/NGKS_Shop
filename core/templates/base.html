@@ -10,10 +10,11 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 ga('create', 'UA-128580397-1', 'auto');
 ga('send', 'pageview');
 </script>
-<!-- End Google Analytics -->		
+<!-- End Google Analytics -->	
+	
 	<title>
 		{% block tittle %}
-			NGKS Shop
+
 		{% endblock %}
 	</title>
 	<meta charset="UTF-8">
@@ -77,7 +78,7 @@ ga('send', 'pageview');
 					</li>
 					
 					<li>
-						<a href="{% url 'sobre_nos' %}">Sobre nós</a>
+						<a href="#">Sobre nós</a>
 					</li>
 					<li>
 						<a href="{% url 'contato' %}" >Contato</a>
@@ -174,12 +175,11 @@ ga('send', 'pageview');
 			{% if user.is_authenticated %}
 					{% if user.tipo == 'E' %}
 					<!--  -->
-					<a href="{% url 'principal' %}" class="header-wrapicon1 dis-block m-l-30">
+					<a href="{% url 'minha_conta' %}" class="header-wrapicon1 dis-block m-l-30">
 						<img src="/static/images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
-					</a>&nbsp;&nbsp;&nbsp;
-						<li ><a href="{% url 'principal' %}" class="s-text7">Minha conta</a> </li>
-						<span class="linedivide1"></span>
-						<li ><a href="{% url 'principal' %}" class="s-text7">Meus pedidos</a> </li>	
+					</a>
+					<span class="linedivide1"></span>
+						<li><a href="{% url 'minha_conta' %}">Minha conta</a> </li>
 						<span class="linedivide1"></span>
 						<li><a href="{% url 'logout' %}" class="s-text7">Sair</a> </li>
 					{% else %}
@@ -199,12 +199,11 @@ ga('send', 'pageview');
             <span class="linedivide1"></span>
 					<div class="header-wrapicon2 m-r-13">
 						<img src="/static/images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
-						<span class="header-icons-noti">{{ quantidade }}</span>
+						<span class="header-icons-noti">0</span>
 
 						<!-- Header cart noti -->
 						<div class="header-cart header-dropdown">
 							<ul class="header-cart-wrapitem">
-								{% for item in itens %}
 								<li class="header-cart-item">
 									<div class="header-cart-item-img">
 										<img src="/static/images/item-cart-01.jpg" alt="IMG">
@@ -212,32 +211,31 @@ ga('send', 'pageview');
 
 									<div class="header-cart-item-txt">
 										<a href="#" class="header-cart-item-name">
-											{{ item.produto }}
+											White Shirt With Pleat Detail Back
 										</a>
 
 										<span class="header-cart-item-info">
-											{{ item.quantidade }} x {{ item.preco }}
+											1 x $19.00
 										</span>
 									</div>
 								</li>
-								{% endfor %}
-								
+
 							<div class="header-cart-total">
-								Total: {{ total }}
+								Total: $75.00
 							</div>
 
 							<div class="header-cart-buttons">
 								<div class="header-cart-wrapbtn">
 									<!-- Button -->
-									<a href="/checkout/carrinho/" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4" style="font-size:12px">
+									<a href="/checkout/carrinho/" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
 										Carrinho
 									</a>
 								</div>
 
 								<div class="header-cart-wrapbtn">
 									<!-- Button -->
-									<a href="{% url 'checkout:checkout' %}" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4" style="font-size:12px">
-										Finalizar Compra
+									<a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+										Check Out
 									</a>
 								</div>
 							</div>
@@ -269,7 +267,7 @@ ga('send', 'pageview');
 							</li>
 
 							<li>
-								<a href="{% url 'sobre_nos' %}">Sobre nós</a>
+								<a href="#">Sobre nós</a>
 							</li>
 							<li>
 								<a href="{% url 'contato' %}" >Contato</a>
@@ -397,7 +395,7 @@ ga('send', 'pageview');
 					</li>
 
 					<li class="item-menu-mobile">
-						<a href="{% url 'sobre_nos' %}">Sobre nós</a>
+						<a href="#">Sobre nós</a>
 					</li>
 
 					<li class="item-menu-mobile">
@@ -423,7 +421,7 @@ ga('send', 'pageview');
 
 				<div>
 					<p class="s-text7 w-size27">
-						Alguma dúvida? Entre em contato pelo facebook ou através de nosso formulário de <a href= "{% url 'contato' %}"  target="_blank">contato!</a> 
+						Alguma dúvida? Entre em contato pelo facebook ou através de nosso formulário de contato!
 					</p>
 
 					<div class="flex-m p-t-30">
@@ -497,7 +495,7 @@ ga('send', 'pageview');
 		</div>
 
 		<div class="t-center p-l-15 p-r-15">
-			Pague com<br>
+			Pague com<br><br>
 			<a href="https://www.paypal.com">
 				<img class="h-size2" src="/static/images/icons/paypal.png" alt="IMG-PAYPAL">
 			</a>
@@ -507,7 +505,7 @@ ga('send', 'pageview');
 			</a>
 
 			<div class="t-center s-text8 p-t-20">
-				Copyright © 2018 All rights reserved. <br> This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com/wp/template/fashe/" target="_blank">Colorlib fashe</a> <br>and modified by AlphaDeveloper
+				Copyright © 2018 All rights reserved. <br> This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com/wp/template/fashe/" target="_blank">Colorlib fashe</a>
 			</div>
 		</div>
 	</footer>
@@ -562,7 +560,21 @@ ga('send', 'pageview');
 	<script type="text/javascript" src="/static/vendor/lightbox2/js/lightbox.min.js"></script>
 <!--===============================================================================================-->
 	<script type="text/javascript" src="/static/vendor/sweetalert/sweetalert.min.js"></script>
+	<script type="text/javascript">
+		$('.block2-btn-addcart').each(function(){
+			var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+			$(this).on('click', function(){
+				swal(nameProduct, "is added to cart !", "success");
+			});
+		});
 
+		$('.block2-btn-addwishlist').each(function(){
+			var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+			$(this).on('click', function(){
+				swal(nameProduct, "is added to wishlist !", "success");
+			});
+		});
+	</script>
 
 <!--===============================================================================================-->
 	<script type="text/javascript" src="/static/vendor/parallax100/parallax100.js"></script>

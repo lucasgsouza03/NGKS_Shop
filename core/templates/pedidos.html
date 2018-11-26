@@ -1,78 +1,107 @@
 <!DOCTYPE html>
 <html>
-<head>
-        <meta charset="UTF-8">
-        {% extends 'base_admin.html' %}
-                {% block title %}  Pedidos  {% endblock %}
-                
-</head>
-<body>
-    {% load static %}
-    {% block main %}
+    <head>
+        <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        {% include 'menu_sup.html' %}
+        <title>Gerenciamento de pedidos</title>
 
-    {% block subtitulo %}
-    Pedidos
-    {% endblock %}
+        <!-- Bootstrap Core CSS -->
+        <link href="/static/css/bootstrap.min.css" rel="stylesheet">
 
-    {% block barra_lateral %}
-                <div class="navbar-default sidebar" role="navigation">
-                    <div class="sidebar-nav navbar-collapse">
-                        <ul class="nav" id="side-menu">
-                            <li>
-                                <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
-                                <ul class="nav nav-second-level">
-                                    <li>
-                                        <a href="flot.html">Flot Charts</a>
-                                    </li>
-                                    <li>
-                                        <a href="morris.html">Morris.js Charts</a>
-                                    </li>
-                                </ul>
-                                <!-- /.nav-second-level -->
-                            </li>
-                            <li>
-                                <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
-                            </li>
-                            <li>
-                                <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
-                            </li>
-                        </ul>
+        <!-- MetisMenu CSS -->
+        <link href="/static/css/metisMenu.min.css" rel="stylesheet">
+
+        <!-- DataTables CSS -->
+        <link href="/static/css/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+
+        <!-- DataTables Responsive CSS -->
+        <link href="/static/css/dataTables/dataTables.responsive.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="/static/css/startmin.css" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link href="/static/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    </head>
+    <body>
+</nav></div>
+
+<!--AREA TABELA -->
+
+<!--AREA TABELA -->
+
+<!--AREA TABELA -->
+
+
+        <div id="page-wrapper" style="min-height: 570px;margin-left:0px">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Sistema de gerenciamento de pedidos</h1>
                     </div>
-                    <!-- /.sidebar-collapse -->
+                    <!-- /.col-lg-12 -->
                 </div>
-    {% endblock %}
-    
-    {% block conteudo1 %}
-    <center>
-    <fonteprincipal> 
-    Oi<br>
-    Oi<br>
-    Oi<br>
-    Oi<br>
-    Oi<br>
-    Oi<br>
-    </fonteprincipal>
-    </center>
-    {% endblock %}
+                            <form method="POST">
+                                {% csrf_token %}
+                                <h2>Usuários Internos</h2>
+                                <div class="dataTable_wrapper">
+                                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                        <thead>
+                                            <tr>
+                                                <th> ID </th>
+                                                <th> PRODUTOS </th>
+                                                <th> SITUAÇÃO </th>
+                                                <th> DATA </th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for i in pedidos %}
+                                            <td>{{ i.pk }}</td> 
+                                            <td> {{ i.user }} </td>
+                                            <td> {{ i.get_status_display}} </td> 
+                                            
+                                            <td> {{ i.criado|date:"d/m/Y" }} </td>
+                                        
+                                        </tr>
+                                        
+                                       
+                                        {% endfor %}
 
-    {% block conteudo2 %}
-    <center>
-    <fonteprincipal> Oi </fonteprincipal>
-    </center>
-    {% endblock %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.table-responsive -->
 
-    {% block conteudo3 %}
-    <center>
-    <fonteprincipal> Oi </fonteprincipal>
-    </center>
-    {% endblock %}
+        <!-- jQuery -->
+        <script src="/static/js/jquery.min.js"></script>
 
+        <!-- Bootstrap Core JavaScript -->
+        <script src="/static/js/bootstrap.min.js"></script>
 
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="/static/js/metisMenu.min.js"></script>
 
+        <!-- DataTables JavaScript -->
+        <script src="/static/js/dataTables/jquery.dataTables.min.js"></script>
+        <script src="/static/js/dataTables/dataTables.bootstrap.min.js"></script>
 
-    {% endblock %}
-</body>
+        <!-- Custom Theme JavaScript -->
+        <script src="/static/js/startmin.js"></script>
+
+        <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+        <script>
+            $(document).ready(function() {
+                $('#dataTables-example').DataTable({
+                        responsive: true
+                });
+            });
+        </script>
+
+    </body>
 </html>
