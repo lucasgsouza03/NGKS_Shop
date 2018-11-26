@@ -21,7 +21,8 @@ from django.conf import settings
 from django.views.static import serve
 from catalogo import views as views_catalogo
 from checkout import views as views_checkout
-from api.views import estoqueProdutoViewSet, CreateCartItemView
+from core import views
+from api.views import estoqueProdutoViewSet
 from django.contrib import admin
 
 ####################ROTAS########################################
@@ -35,7 +36,9 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     #ecommerce
     url(r'^$', index, name='index'),
-    url(r'^sobre_nos/$', sobre_nos, name='sobre_nos'),
+    url(r'^minha_conta/', minha_conta, name='minha_conta'),
+    url(r'^atualizar_usuario/', atualizar_usuario, name='atualizar_usuario'),
+    url(r'^alterar_senha/', alterar_senha, name='alterar_senha'),
     url(r'^lista_produtos/', lista_produtos, name='lista_produtos'),
     url(r'^categoria/(?P<slug>.*)/$', loja_categoria, name='loja_categoria'),
     url(r'^produtos/(?P<slug>.*)/$', loja_produto, name='loja_produto'),
@@ -55,12 +58,13 @@ urlpatterns = [
     url(r'^sgu/', include(('SGU.urls', 'sgu'), namespace='sgu')),
     url(r'^estoque/', include(('estoque.urls', 'estoque'), namespace='estoque')),
     url(r'^fluxo/$', fluxo, name='fluxo'),
-    url(r'^pedidos/$', pedidos, name='pedidos'),
+    url(r'^pedidos/$', views.pedidos, name='pedidos'),
+    url(r'^meus-pedidos/$', views.lista_pedido, name='lista_pedido'),
+    url(r'^meus-pedidos/(?P<pk>\d+)/$', views.detalhe_pedido, name='detalhe_pedido'),
     url(r'^catalogo/', include(('catalogo.urls', 'catalogo'), namespace='catalogo')),
     #API
     url(r'api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls')),
-    url(r'carrinho/adicionar/(?P<slug>.*)/$', CreateCartItemView.as_view(), name="adicionar_carrinho"),
 ]
 
 if settings.DEBUG:
