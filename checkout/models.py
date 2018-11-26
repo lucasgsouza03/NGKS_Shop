@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from catalogo.models import Produto
 from pagseguro import PagSeguro
+from django.urls import reverse
 
 # Create your models here.
 
@@ -62,8 +63,10 @@ class Pedido(models.Model):
     
     STATUS_CHOICES = (  
         (0, 'Aguardando Pagamento'),
-        (1, 'Concluida'),
+        (1, 'Pago'),
         (2,'Cancelada'),
+        (3,'Enviado para os correios'),
+        (4,'Entregue ao destinatário'),
     )
 
     PAYMENT_OPTION_CHOICES = (  
@@ -71,7 +74,7 @@ class Pedido(models.Model):
         ('paypal', 'Paypal'),
     )
 
-    user = models.ForeignKey( 
+    user = models.ForeignKey(
         settings.AUTH_USER_MODEL, verbose_name='Usuário', on_delete=models.DO_NOTHING
     )
     status = models.IntegerField(
@@ -85,6 +88,9 @@ class Pedido(models.Model):
     modificado = models.DateTimeField('Modificado em', auto_now=True)
 
     objects = PedidoManager()
+
+    def get_absolute_url(self):
+        return reverse('checkout:update_pedido', args=[pedido.pk])
 
     class Meta:
         verbose_name = 'Pedido'
@@ -139,7 +145,6 @@ class Pedido(models.Model):
                     'amount': '%.2f' % item.preco
                 }
             )
-        
         return pg
 
     def paypal(self):
