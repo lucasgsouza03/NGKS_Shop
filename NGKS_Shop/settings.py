@@ -157,7 +157,10 @@ EMAIL_PORT = 587
 # Thumbnails
 THUMBNAIL_ALIASES = {
     '': {
-        'imagem_produto': {'size': (200, 250), 'crop': True},
+        'imagem_lista_produto': {'size': (200, 250), 'crop': True},
+        'imagem_produto':{'size':(500,700), 'crop': True},
+        'imagem_banner':{'size':(720,660), 'crop': False},
+        'imagem_item':{'size':(100,150), 'crop': False},
     },
 }
 THUMBNAIL_HIGH_RESOLUTION = True
