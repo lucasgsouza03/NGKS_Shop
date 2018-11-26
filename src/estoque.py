@@ -63,3 +63,29 @@ class Gerencia_materia():
         m.fornecedor = fornecedor
         m.quantidade = quantidade
         m.save()
+
+class Atualiza_estoque():
+
+    def adiciona_produto(id, quantidade):
+        produto = estoque_produto.objects.get(id=id)
+        produto.quantidade = produto.quantidade + int(quantidade)
+        produto.save()
+    
+    def remove_produto(id, quantidade):
+        produto = estoque_produto.objects.get(id=id)
+        produto.quantidade = produto.quantidade - int(quantidade)
+        if produto.quantidade < 0:
+            produto.quantidade = 0
+        produto.save()
+
+    def adiciona_materia(id, quantidade):
+        materia = estoque_materia_prima.objects.get(id=id)
+        materia.quantidade = materia.quantidade + int(quantidade)
+        materia.save()
+    
+    def remove_materia(id, quantidade):
+        materia = estoque_materia_prima.objects.get(id=id)
+        materia.quantidade = materia.quantidade - int(quantidade)
+        if materia.quantidade < 0:
+            materia.quantidade = 0
+        materia.save()

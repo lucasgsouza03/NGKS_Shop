@@ -78,7 +78,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'SGU.context_processors.header',
-                'core.context_processors.categorias'
+                'core.context_processors.categorias',
+                'core.context_processors.carrinho',
             ],
         },
     },
@@ -95,7 +96,7 @@ DATABASES = {
         'NAME': 'ngks_shop',
         'USER': 'root',
         'PASSWORD': 'Z3ld4100%',
-        'HOST': 'ngksshop.ctvm1wxpmlex.us-east-1.rds.amazonaws.com',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
@@ -142,6 +143,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 #login 
 AUTH_USER_MODEL = 'SGU.Usuario'
+LOGIN_URL = 'loginEcommerce'
+LOGOUT_URL = 'sgu:logout' 
 
 #e-mail
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -157,6 +160,7 @@ THUMBNAIL_ALIASES = {
         'imagem_produto': {'size': (200, 250), 'crop': True},
     },
 }
+THUMBNAIL_HIGH_RESOLUTION = True
 
 #MESSAGE
 from django.contrib.messages import constants as messages_constants 

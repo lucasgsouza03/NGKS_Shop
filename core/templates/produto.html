@@ -123,7 +123,7 @@
 
               <div class="btn-addcart-product-detail size9 trans-0-4 m-t-10 m-b-10">
                 <!-- Button -->
-                <a href="/checkout/carrinho/adicionar/{{ produto.slug }}/" class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4" role="button">Adicionar</a>
+                <a href="#" class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4" role="button">Adicionar</a>
               </div>
             </div>
           </div>
@@ -480,7 +480,12 @@
     $('.btn-addcart-product-detail').each(function(){
       var nameProduct = $('.product-detail-name').html();
       $(this).on('click', function(){
-        swal(nameProduct, "is added to wishlist !", "success");
+        $.ajax({
+					type: 'GET',
+					url: "{% url 'adicionar_carrinho' slug=produto.slug  %}",
+					dataType : 'json'
+				});
+        swal(nameProduct, "Adicionado ao carrinho!", "success");
       });
     });
   </script>
