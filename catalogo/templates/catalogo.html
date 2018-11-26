@@ -75,7 +75,6 @@
                                                 <th> Produto </th>
                                                 <th> Criado em </th>
                                                 <th> Modificado em </th>
-                                                <th> Peso </th>
                                                 <th> Preço </th>
                                                 <th> Deletar </th>
                                                 <th> Editar </th>
@@ -88,7 +87,6 @@
                                             <td>{{ i.nome }}</td> 
                                             <td> {{ i.criado }} </td>
                                             <td> {{ i.modificado }} </td> 
-                                            <td> {{ i.peso }} </td>
                                             <td> {{ i.price }} </td>
                                             <td><button type="submit" name="delete" value="{{ i.id }}">Delete</button></td>
                                             <td><a href="{{ i.get_absolute_url }}">Editar</a></td>

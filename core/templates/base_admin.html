@@ -69,13 +69,6 @@
                 <!-- ###################### CONTEUDO DA PAG.  #########################--> 
 
                 <div class="column side">
-                {% block messages %}
-                    {% for message in messages %}
-                        <div class="alert alert-{{ message.tags }} ">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endblock %}
                 {% block conteudo1 %}
 
                 {% endblock %}
@@ -109,19 +102,7 @@
         
         <!-- VOLTAR A PÁGINA -->
         <script>function goBack() {window.history.back();}</script>
-        <script>
-        function showList(){
-            var x = document.getElementById("produtos");
-            var y = document.getElementById("materias");
-            if (document.getElementById("rdbprodutos").checked){
-                x.style.display = "block";
-                y.style.display = "none";
-            } else if (document.getElementById("rdbmaterias").checked){
-                x.style.display = "none";
-                y.style.display = "block";
-            }
-        }
-    </script>
+        
         <!-- Bootstrap Core JavaScript -->
         <script src="/static/js/bootstrap.min.js"></script>
 

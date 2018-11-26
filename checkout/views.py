@@ -4,7 +4,7 @@ from paypal.standard.forms import PayPalPaymentsForm
 from paypal.standard.models import  ST_PP_COMPLETED
 from paypal.standard.ipn.signals import valid_ipn_received
 
-from django.views.generic import RedirectView, TemplateView, ListView, DetailView
+from django.views.generic import RedirectView, TemplateView, ListView, DetailView, UpdateView
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -13,7 +13,9 @@ from django.contrib import messages
 from django.urls import reverse
 from django.shortcuts import redirect
 from catalogo.models import Produto
-from .models import CartItem, Pedido
+from checkout.models import CartItem, Pedido
+from django.http import HttpResponse
+from django.conf import settings
 
 # Create your views here.
 
@@ -34,7 +36,7 @@ class CreateCartItemView( RedirectView):
         return reverse('checkout:cart_item')
 
 
-class CartItemView(TemplateView):
+class CartItemView(LoginRequiredMixin, TemplateView):
 
     template_name = 'carrinho.html'
 
@@ -107,6 +109,11 @@ class DetalhePedidoView(LoginRequiredMixin, DetailView):
     def get_queryset(self):
         return Pedido.objects.filter(user=self.request.user)
 
+class Update_Pedido(UpdateView):
+    model = Pedido
+    template_name = 'atualizar_pedido.html'
+    fields = ['status', 'opcao_pagamento']
+
 
 class PagSeguroView(LoginRequiredMixin, RedirectView):
 
@@ -143,7 +150,7 @@ class PaypalView(LoginRequiredMixin, TemplateView):
             reverse('checkout:lista_pedido')
         )
         paypal_dict['notify_url'] = self.request.build_absolute_uri(
-            reverse('paypal:paypal-ipn')
+            reverse('paypal-ipn')
         )
         context['form'] = PayPalPaymentsForm(initial=paypal_dict)
         return context
@@ -173,7 +180,7 @@ def pagseguro_notification(request):
 
 def paypal_notification(sender, **kwargs):
     ipn_obj = sender
-    if ipn_obj.payement_status == ST_PP_COMPLETED and \
+    if ipn_obj.payment_status == ST_PP_COMPLETED and \
         ipn_obj.receiver_email == settings.PAYPAL_EMAIL:
         try:
             order = Pedido.objects.get(pk=ipn_obj.invoice)
@@ -191,6 +198,7 @@ cart_item = CartItemView.as_view()
 checkout = CheckoutView.as_view()
 lista_pedido = ListaPedidoView.as_view()
 detalhe_pedido = DetalhePedidoView.as_view()
+update_pedido = Update_Pedido.as_view()
 
 
 

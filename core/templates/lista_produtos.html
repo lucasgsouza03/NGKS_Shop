@@ -5,7 +5,7 @@
 
 {% block pagina %}
 <section class="parallax0 parallax100" style="background-image: url(/static/images/icons/banner_produto.jpg); background-position: center -29.6146px; height: 50%">
-        <div class="overlay0 p-t-40 vitrine">
+        <div class="overlay0 p-t-40 p-b-200">
             <div class="flex-col-c-m p-l-15 p-r-15">
                 <span class="m-text9 p-t-45 fs-20-sm">
                     <br>
@@ -41,6 +41,11 @@
                                             <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
                                             <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
                                         </a>
+
+                                        <div class="block2-btn-addcart w-size1 trans-0-4">
+                                            <!-- Button -->
+                                            <a href="/checkout/carrinho/adicionar/{{ produto.slug }}/" class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4" role="button">Adicionar</a>
+                                        </div>
                                     </div>
                                 </div>
 
