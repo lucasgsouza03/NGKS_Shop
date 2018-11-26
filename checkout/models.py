@@ -26,7 +26,7 @@ class CartItem(models.Model):
     preco = models.DecimalField('Preço', decimal_places=2, max_digits=8)
     produto = models.ForeignKey(
         'catalogo.produto',
-        on_delete=models.DO_NOTHING,
+        on_delete=models.CASCADE,
         verbose_name='catalogo.produto'
     )
 
@@ -62,8 +62,9 @@ class Pedido(models.Model):
     
     STATUS_CHOICES = (  
         (0, 'Aguardando Pagamento'),
-        (1, 'Concluida'),
+        (1, 'Pago'),
         (2,'Cancelada'),
+        (3, 'Enviado para os Correios')
     )
 
     PAYMENT_OPTION_CHOICES = (  
@@ -166,10 +167,10 @@ class PedidoItem(models.Model):
     quantidade = models.PositiveIntegerField('Quantidade', default=1)
     preco = models.DecimalField('Preço', decimal_places=2, max_digits=8)
     produto = models.ForeignKey(
-        'catalogo.produto', on_delete=models.DO_NOTHING, verbose_name='catalogo.produto'
+        'catalogo.produto', on_delete=models.CASCADE, verbose_name='catalogo.produto'
     )
     pedido = models.ForeignKey(
-        Pedido, verbose_name='Pedido', related_name='items', on_delete=models.DO_NOTHING
+        Pedido, verbose_name='Pedido', related_name='items', on_delete=models.CASCADE
     )
 
     class Meta:

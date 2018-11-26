@@ -5,7 +5,7 @@ from .models import Produto, Categoria, Materia
 class cadastrar_produto(forms.ModelForm):
     class Meta:
         model = Produto
-        fields = ['nome', 'slug','categoria', 'peso', 'descricao', 'price']
+        fields = ['nome', 'slug','categoria', 'imagem', 'peso', 'descricao', 'price']
 
     def save(self, commit=True):
         this = super(cadastrar_produto, self).save(commit=False)

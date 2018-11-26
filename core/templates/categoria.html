@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load thumbnail %}
+{% load pagination %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,19 +64,18 @@
                         <div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
                             <!-- Block2 -->
                             <div class="block2">
-                                <div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
-                                    <img src="https://img.elo7.com.br/product/zoom/10F2018/camiseta-jake-no-bolso-hora-de-aventura-finn.jpg" alt="IMG-PRODUCT">
+                                <div class="block2-img wrap-pic-w of-hidden pos-relative">
+                                    {% if produto.imagem %}
+                                    <img src="{{ produto.imagem|thumbnail_url:'imagem_lista_produto' }}" alt="IMG-PRODUCT">
+                                    {% else %}
+                                    <img src="http://placehold.it/350x250" alt="IMG-PRODUCT" />
+                                    {% endif %}
 
                                     <div class="block2-overlay trans-0-4">
                                         <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
                                             <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
                                             <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
                                         </a>
-
-                                        <div class="block2-btn-addcart w-size1 trans-0-4">
-                                            <!-- Button -->
-                                            <a href="/checkout/carrinho/adicionar/{{ produto.slug }}/" class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4" role="button">Adicionar</a>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -94,8 +95,7 @@
 
                     <!-- Pagination -->
                     <div class="pagination flex-m flex-w p-t-26">
-                        <a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>
-                        <a href="#" class="item-pagination flex-c-m trans-0-4">2</a>
+                        {% pagination request paginator page_obj %}
                     </div>
                 </div>
             </div>

@@ -17,6 +17,8 @@ from django.conf import settings
 from .forms import contato_forms
 from django.views.generic import View, TemplateView, CreateView
 from django.contrib import messages
+from estoque.models import estoque_produto
+from checkout.models import Pedido
 
 # Create your views here.
 def check_estoque(request):
@@ -34,9 +36,8 @@ def check_empresa(request):
 
 def index(request):
     contexto = {
-    'index' : Produto.objects.all()
+    'index' : Produto.objects.all().order_by('-criado')[:3],
     }
-    
     return render(request, 'index.html',contexto)
 
 def lista_produtos(request):
@@ -55,8 +56,10 @@ def loja_categoria(request, slug):
 
 def loja_produto(request, slug):
     produto = Produto.objects.get(slug=slug)
+    estoque = estoque_produto.objects.filter(produto_id__id=produto.id)
     contexto = {
         'produto': produto,
+        'estoque': estoque,
     }
     return render(request, 'produto.html', contexto)
 
@@ -138,7 +141,17 @@ def fluxo(request):
 @login_required(login_url='sgu:login')
 @user_passes_test(check_pedidos, login_url='sgu:erro_acesso', redirect_field_name=None)
 def pedidos(request):
-    return render(request, "pedidos.html")
+
+    if request.method == 'POST':
+        button = request.POST.get("button")
+        if button:
+            pedido = Pedido.objects.get(pk=button)
+            pedido.status = 3
+            pedido.save()
+    contexto = {
+        'pedidos': Pedido.objects.all(),
+    }
+    return render(request, "pedidos.html", contexto)
 
 def sobre_nos(request):
     return render(request, "sobre_nos.html")
