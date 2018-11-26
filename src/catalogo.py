@@ -28,11 +28,13 @@ class Gerencia_produto():
         nome = request.POST.get("nome")
         categoria = request.POST.get("categoria")
         descricao = request.POST.get("descricao")
+        peso = request.POST.get("peso")
         price = request.POST.get("price")
         produto = Produto.objects.get(slug=slug)
         produto.nome = nome
         produto.categoria_id = categoria
         produto.descricao = descricao
+        produto.peso = peso
         produto.price = price
         produto.save()
 

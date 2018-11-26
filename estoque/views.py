@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from .models import *
 from django.views.generic import UpdateView
+from django.contrib import messages
 
 # Create your views here.
 
@@ -86,23 +87,6 @@ def cadastro_produto(request):
         'form':cadastrar_produto()
     }
     return render(request, "cadastro_produto.html", contexto)
-'''
-@login_required(login_url='sgu:login')
-@user_passes_test(check_estoque, login_url='sgu:erro_acesso', redirect_field_name=None)
-def produto_detalhes(request, slug):
-    if request.method == 'POST':
-        button = request.POST.get("button")
-        Gerencia_produto.Atualiza_produto(request, slug)
-        if button == "update_continue":
-            return HttpResponseRedirect(reverse('estoque:produto_detalhes', kwargs={'slug':slug}))
-        elif button == "update":
-            return HttpResponseRedirect(reverse('estoque:estoque_produto'))
-    else:
-        contexto = {
-            'produto': estoque_produto.objects.get(slug=slug)
-        }
-    return render(request, 'estoque_produto_detalhes.html', contexto)
-'''
 
 @login_required(login_url='sgu:login')
 @user_passes_test(check_estoque, login_url='sgu:erro_acesso', redirect_field_name=None)
@@ -129,23 +113,6 @@ def cadastro_materia(request):
         'form':cadastrar_materia()
     }
     return render(request, "cadastro_materia.html", contexto)
-'''
-@login_required(login_url='sgu:login')
-@user_passes_test(check_estoque, login_url='sgu:erro_acesso', redirect_field_name=None)
-def materia_detalhes(request, slug):
-    if request.method == 'POST':
-        button = request.POST.get("button")
-        Gerencia_materia.Atualiza_materia(request, slug)
-        if button == "update_continue":
-            return HttpResponseRedirect(reverse('estoque:materia_detalhes', kwargs={'slug':slug}))
-        elif button == "update":
-            return HttpResponseRedirect(reverse('estoque:estoque_materia'))
-    else:
-        contexto = {
-            'materia': estoque_materia_prima.objects.get(slug=slug)
-        }
-    return render(request, 'estoque_materia_detalhes.html', contexto)
-'''
 
 class updateEstoqueProduto(UpdateView):
     model = estoque_produto
@@ -156,6 +123,39 @@ class updateEstoqueMateria(UpdateView):
     model = estoque_materia_prima
     template_name = 'estoque_materia_detalhes.html'
     fields = ['materia_prima', 'imagem', 'cor', 'tamanho', 'fornecedor']
+
+def atualiza_produto(request):
+    if request.method == 'POST':
+        produto = request.POST.get("produto")
+        tipo = request.POST.get("tipo")
+        quantidade = request.POST.get("quantidade")
+        if tipo == 'adicionar':
+            Atualiza_estoque.adiciona_produto(produto, quantidade)
+            messages.info(request, 'Adicionado ao estoque do Produto')
+        elif tipo == 'remover':
+            Atualiza_estoque.remove_produto(produto, quantidade)
+            messages.info(request, 'Removido do estoque do Produto')
+    contexto = {
+        'produtos': estoque_produto.objects.all(),
+    }
+    return render(request, "atualizar_estoque_produto.html", contexto)
+
+def atualiza_materia(request):
+    if request.method == 'POST':
+        materia = request.POST.get("materia")
+        tipo = request.POST.get("tipo")
+        quantidade = request.POST.get("quantidade")
+        if tipo == 'adicionar':
+            Atualiza_estoque.adiciona_materia(materia, quantidade)
+            messages.info(request, 'Adicionado ao estoque do Produto')
+        elif tipo == 'remover':
+            Atualiza_estoque.remove_materia(materia, quantidade)
+            messages.info(request, 'Removido do estoque do Produto')
+
+    contexto = {
+        'materias': estoque_materia_prima.objects.all(),
+    }
+    return render(request, "atualizar_estoque_materia.html", contexto)
 
 produto_detalhes = updateEstoqueProduto.as_view()
 materia_detalhes = updateEstoqueMateria.as_view()

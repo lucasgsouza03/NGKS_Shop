@@ -31,7 +31,7 @@ class Correios(object):
 
     def frete(self, cod='', GOCEP='08113000', HERECEP='01133000',
         peso='1', formato='2', comprimento='20', altura='10', largura='10', diametro='20',
-        mao_propria='N', valor_declarado='0', aviso_recebimento='N', empresa='', senha='', toback='xml'):
+        mao_propria='N', valor_declarado='0', aviso_recebimento='s', empresa='', senha='', toback='xml'):
 
         base_url = "http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx"
 

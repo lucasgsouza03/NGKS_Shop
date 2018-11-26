@@ -3,6 +3,8 @@ from .views import *
 
 urlpatterns = [
     url(r'^$', estoque, name='estoque'),
+    url(r'^atualiza_produto/$', atualiza_produto, name='atualiza_produto'),
+    url(r'^atualiza_materia/$', atualiza_materia, name='atualiza_materia'),
     url(r'^fornecedores/$', fornecedores, name='fornecedores'),
     url(r'^cadastro_forncedor/$', cadastro_fornecedor, name='cadastro_fornecedor'),
     url(r'^(?P<slug>.*)/fornecedor_detalhes', fornecedor_detalhes, name='fornecedor_detalhes'),
