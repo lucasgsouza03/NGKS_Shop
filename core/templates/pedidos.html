@@ -46,62 +46,57 @@
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
-                            <form method="POST">
-                                {% csrf_token %}
-                                <h2>Usuários Internos</h2>
-                                <div class="dataTable_wrapper">
-                                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                        <thead>
-                                            <tr>
-                                                <th> ID </th>
-                                                <th> PRODUTOS </th>
-                                                <th> SITUAÇÃO </th>
-                                                <th> DATA </th>
-                                                
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for i in pedidos %}
-                                            <td>{{ i.pk }}</td> 
-                                            <td> {{ i.user }} </td>
-                                            <td> {{ i.get_status_display}} </td> 
-                                            
-                                            <td> {{ i.criado|date:"d/m/Y" }} </td>
-                                        
-                                        </tr>
-                                        
-                                       
-                                        {% endfor %}
+    {% endblock %}
+    
+    {% block conteudo1 %}
+    <div id="page-wrapper" style="min-height: 570px;margin-left:0px">
+        <div class="panel-body">
+        <br>
+        <form method="POST">
+            {% csrf_token %}
+            <h2>Lista de Pedidos</h2>
+            <div class="dataTable_wrapper">
+                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                    <thead>
+                        <tr>
+                            <th> ID </th>
+                            <th> Comprador </th>
+                            <th> Status </th>
+                            <th> Opção de Pagamento </th>
+                            <th> detalhes </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in pedidos %}
+                        <td>{{ i.pk }}</td> 
+                        <td> {{ i.user }} </td>
+                        {% if i.get_status_display == "Pago" %}
+                            <td><button type="submit" name="button" value="{{ i.pk }}" class="btn btn-outline btn-primary" >Enviar</button></td>
+                        {% else %}
+                            <td> {{ i.get_status_display }} </td>
+                        {% endif %}
+                        <td> {{ i.opcao_pagamento }} </td> 
+                        <td><a href="#">Editar</a></td>
+                    </tr>
+                    {% endfor %}
 
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!-- /.table-responsive -->
+                    </tbody>
+                </table>
+            </form>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
 
-        <!-- jQuery -->
-        <script src="/static/js/jquery.min.js"></script>
+    {% block conteudo2 %}
 
-        <!-- Bootstrap Core JavaScript -->
-        <script src="/static/js/bootstrap.min.js"></script>
+    {% endblock %}
 
-        <!-- Metis Menu Plugin JavaScript -->
-        <script src="/static/js/metisMenu.min.js"></script>
+    {% block conteudo3 %}
 
-        <!-- DataTables JavaScript -->
-        <script src="/static/js/dataTables/jquery.dataTables.min.js"></script>
-        <script src="/static/js/dataTables/dataTables.bootstrap.min.js"></script>
+    {% endblock %}
 
-        <!-- Custom Theme JavaScript -->
-        <script src="/static/js/startmin.js"></script>
+    {% endblock %}
+</body>
 
-        <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-        <script>
-            $(document).ready(function() {
-                $('#dataTables-example').DataTable({
-                        responsive: true
-                });
-            });
-        </script>
-
-    </body>
 </html>

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load thumbnail %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,23 +40,18 @@
           <div class="wrap-slick3-dots"></div>
 
           <div class="slick3">
-            <div class="item-slick3" data-thumb="https://img.elo7.com.br/product/zoom/10F2018/camiseta-jake-no-bolso-hora-de-aventura-finn.jpg">
-              <div class="wrap-pic-w">
-                <img src="https://img.elo7.com.br/product/zoom/10F2018/camiseta-jake-no-bolso-hora-de-aventura-finn.jpg" alt="IMG-PRODUCT">
-              </div>
-            </div>
 
-            <div class="item-slick3" data-thumb="https://http2.mlstatic.com/camiseta-the-last-of-us-hora-de-aventura-adventure-time-D_NQ_NP_205711-MLB20613552430_032016-F.jpg">
+            {% for produto in estoque %}
+            {% if produto.slug in slug_disp %}
+            {% if produto.tamanho == "P" %}
+            <div class="item-slick3" data-thumb="{{ produto.imagem|thumbnail_url:'imagem_item' }}">
               <div class="wrap-pic-w">
-                <img src="https://http2.mlstatic.com/camiseta-the-last-of-us-hora-de-aventura-adventure-time-D_NQ_NP_205711-MLB20613552430_032016-F.jpg" alt="IMG-PRODUCT">
+                <img src="{{ produto.imagem|thumbnail_url:'imagem_produto' }}" alt="IMG-PRODUCT">
               </div>
             </div>
-
-            <div class="item-slick3" data-thumb="https://i.pinimg.com/originals/c7/61/90/c761909fc5417e6682f39e4c1c6d56fd.jpg">
-              <div class="wrap-pic-w">
-                <img src="https://i.pinimg.com/originals/c7/61/90/c761909fc5417e6682f39e4c1c6d56fd.jpg" alt="IMG-PRODUCT">
-              </div>
-            </div>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
           </div>
         </div>
       </div>
@@ -109,6 +105,7 @@
 
           <div class="flex-r-m flex-w p-t-10">
             <div class="w-size16 flex-m flex-w">
+
               <div class="flex-w bo5 of-hidden m-r-22 m-t-10 m-b-10">
                 <button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
                   <i class="fs-12 fa fa-minus" aria-hidden="true"></i>
@@ -121,17 +118,13 @@
                 </button>
               </div>
 
+
               <div class="btn-addcart-product-detail size9 trans-0-4 m-t-10 m-b-10">
                 <!-- Button -->
                 <a href="/checkout/carrinho/adicionar/{{ produto.slug }}/" class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4" role="button">Adicionar</a>
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="p-b-45">
-          <span class="s-text8 m-r-35">SKU: MUG-01</span>
-          <span class="s-text8">Categories: Mug, Design</span>
         </div>
 
         <!--  -->
