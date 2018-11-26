@@ -19,6 +19,9 @@ from django.views.generic import View, TemplateView, CreateView
 from django.contrib import messages
 from estoque.models import estoque_produto
 from checkout.models import Pedido
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import View, TemplateView, CreateView, UpdateView, FormView, ListView, DetailView
+from django.contrib.auth.forms import PasswordChangeForm
 
 # Create your views here.
 def check_estoque(request):
@@ -155,3 +158,34 @@ def pedidos(request):
 
 def sobre_nos(request):
     return render(request, "sobre_nos.html")
+
+class  Minha_ContaView(LoginRequiredMixin, TemplateView):
+
+    template_name = 'minha_conta.html'
+
+class AtualizarUsuarioView(LoginRequiredMixin, UpdateView):
+
+    model = Usuario
+    template_name = 'atualizar_usuario.html'
+    fields = ['nome','email']
+    success_url = reverse_lazy('minha_conta')
+    def get_object(self):
+        return self.request.user
+
+class AlterarSenhaView(LoginRequiredMixin, FormView):
+    template_name = 'alterar_senha.html'
+    success_url = reverse_lazy('minha_conta')
+    form_class = PasswordChangeForm
+
+    def get_form_kwargs(self):
+        kwargs = super(AlterarSenhaView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.save()
+        return super(AlterarSenhaView, self).form_valid(form)
+
+minha_conta = Minha_ContaView.as_view()
+atualizar_usuario = AtualizarUsuarioView.as_view()
+alterar_senha = AlterarSenhaView.as_view()

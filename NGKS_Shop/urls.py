@@ -59,8 +59,8 @@ urlpatterns = [
     url(r'^estoque/', include(('estoque.urls', 'estoque'), namespace='estoque')),
     url(r'^fluxo/$', fluxo, name='fluxo'),
     url(r'^pedidos/$', views.pedidos, name='pedidos'),
-    url(r'^meus-pedidos/$', views.lista_pedido, name='lista_pedido'),
-    url(r'^meus-pedidos/(?P<pk>\d+)/$', views.detalhe_pedido, name='detalhe_pedido'),
+    url(r'^meus-pedidos/$', views_checkout.lista_pedido, name='lista_pedido'),
+    url(r'^meus-pedidos/(?P<pk>\d+)/$', views_checkout.detalhe_pedido, name='detalhe_pedido'),
     url(r'^catalogo/', include(('catalogo.urls', 'catalogo'), namespace='catalogo')),
     #API
     url(r'api/', include(router.urls)),
