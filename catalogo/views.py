@@ -104,10 +104,12 @@ def produto_detalhes(request, slug):
             return HttpResponseRedirect(reverse('catalogo:produtos'))
     else:
         produto = Produto.objects.get(slug=slug)
+        peso = str(produto.peso).replace(',','.')
         contexto = {
             'categorias': Categoria.objects.all(),
             'produto': produto,
-            'price': int(produto.price)
+            'price': int(produto.price),
+            'peso': peso
         }
         return render(request, "produto_detalhes.html", contexto)
 

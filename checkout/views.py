@@ -34,7 +34,7 @@ class CreateCartItemView( RedirectView):
         return reverse('checkout:cart_item')
 
 
-class CartItemView(LoginRequiredMixin, TemplateView):
+class CartItemView(TemplateView):
 
     template_name = 'carrinho.html'
 

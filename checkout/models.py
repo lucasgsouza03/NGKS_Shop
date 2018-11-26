@@ -71,7 +71,7 @@ class Pedido(models.Model):
         ('paypal', 'Paypal'),
     )
 
-    user = models.ForeignKey(
+    user = models.ForeignKey( 
         settings.AUTH_USER_MODEL, verbose_name='Usuário', on_delete=models.DO_NOTHING
     )
     status = models.IntegerField(
@@ -139,6 +139,7 @@ class Pedido(models.Model):
                     'amount': '%.2f' % item.preco
                 }
             )
+        
         return pg
 
     def paypal(self):

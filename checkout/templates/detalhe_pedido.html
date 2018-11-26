@@ -17,7 +17,18 @@
     <dd>{{ object.total|floatformat:"2" }}</dd>
     <dt>Situação :</dt>
     <dd>{{ object.get_status_display }}</dd>
-    <dt>Data :</dt>
+    {% if object.get_status_display == "Aguardando Pagamento" %}
+        {% if object.opcao_pagamento == "pagseguro" %}
+            <div class="col-md-4 col-md-offset-3">
+                <a href="{% url 'checkout:pagseguro_view' pedido.pk %} " class="btn btn-primary">Finalizar pagamento</a>
+            </div>
+        {% elif object.opcao_pagamento == "paypal" %}
+            <div class="col-md-5">
+                <a href="{% url 'checkout:paypal_view' pedido.pk %}" class="btn btn-primary">Finalizar pagamento</a>
+            </div>
+        {% endif %}
+    {% endif %}
+    <dt>Data</dt>
     <dd>{{ object.criado|date:"d/m/Y H:i" }}</dd>
     <dt>Meio de Pagamento :</dt>
     <dd style="text-transform: uppercase;">{{ object.opcao_pagamento}}</dd>
