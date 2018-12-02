@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     {% block tittle %}
-    {{ produto.nome }}
+    {{ produto.nome }} | {{ block.super }}
     {% endblock %}
 </head>
 {% block pagina %}

@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from src.usuario import Gerencia_permissao
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .models import Produto, Categoria, Materia
 from .forms import *
 from src.catalogo import Gerencia_categoria, Gerencia_produto, Gerencia_materia
 from django.http import HttpResponseRedirect

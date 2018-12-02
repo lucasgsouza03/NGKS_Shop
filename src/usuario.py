@@ -13,15 +13,7 @@ class Gerencia_usuario():
         for nome in nomes:
             done = Permissions.objects.create(groups=nome, usuario_id=pessoa.id)
             done.save()
-        
-    def Cria_cliente(request, form):
-        form.save()
-        cep = request.POST.get("cep")
-        cpf = request.POST.get("cpf")
-        username = request.POST.get("username")
-        pessoa = Usuario.objects.get(username=username)
-        done = Cliente.objects.create(cep=cep, cpf=cpf, usuario_ptr_id=pessoa.id)
-        done.save()
+
 
     def Atualiza_usuario(request, username):
         nome = request.POST.get("nome")

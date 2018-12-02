@@ -4,7 +4,6 @@ from .forms import *
 from src.estoque import *
 from src.usuario import Gerencia_permissao
 from django.http import HttpResponseRedirect
-from django.urls import reverse, reverse_lazy
 from .models import *
 from django.views.generic import UpdateView
 from django.contrib import messages

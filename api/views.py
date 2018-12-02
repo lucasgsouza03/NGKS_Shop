@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework import viewsets
 from estoque.models import estoque_produto
 from .serializers import estoqueProdutoSerializer

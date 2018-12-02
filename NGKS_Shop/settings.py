@@ -144,7 +144,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 #login 
 AUTH_USER_MODEL = 'SGU.Usuario'
 LOGIN_URL = 'loginEcommerce'
-LOGOUT_URL = 'sgu:logout' 
+LOGOUT_URL = 'sgu:logout'
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'core.backends.ModelBackend',
+)
 
 #e-mail
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

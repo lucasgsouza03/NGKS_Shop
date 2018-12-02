@@ -7,10 +7,6 @@
     {% endblock %}
     
     {% block conteudo2 %}
-    nome = request.POST.get("nome")
-    tipo = request.POST.get("tipo")
-    email = request.POST.get("email")
-    telefone = request.POST.get("telefone")
     <form method="POST">
         {% csrf_token %}
         <br><center>

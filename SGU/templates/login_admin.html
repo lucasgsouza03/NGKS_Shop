@@ -13,6 +13,11 @@
     {% block conteudo %}
     {% load bootstrap3 %}
     {% bootstrap_css %}
+    {% for message in messages %}
+		<div class="alert alert-{{ message.tags }}">
+			{{ message }}
+		</div>
+	{% endfor %}
     <label>Usuário</label>
     <br><input class="w3-input" name = "username" />
     <br><p><label>Senha</label>

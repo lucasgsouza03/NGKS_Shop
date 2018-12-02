@@ -1,5 +1,6 @@
 {% extends 'base_admin.html' %} 
 {% load static %}
+{% block title %}  Detalhes {{ produto.nome }} | {{ block.super }} {% endblock %}
     {% block main %}
 
     {% block subtitulo %}

@@ -1,26 +1,20 @@
 from django.shortcuts import render
-from src.usuario import Gerencia_permissao
 from django.contrib.auth.decorators import login_required, user_passes_test
-from SGU.models import Grupos, Usuario, Permissions, Cliente
+from SGU.models import Grupos, Usuario
 from catalogo.models import Categoria, Produto
 from django.contrib.auth import authenticate
 from django.contrib.auth.views import login
-from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
-from SGU.forms import form_cliente, LoginForm, form_usuario
+from SGU.forms import form_cliente, LoginForm
 from django.urls import reverse, reverse_lazy
-from src.usuario import Gerencia_usuario, Gerencia_permissao
-from django.views.generic import CreateView
-from django.http import HttpResponse
-from django.core.mail import send_mail
-from django.conf import settings
+from src.usuario import Gerencia_permissao
+
 from .forms import contato_forms
-from django.views.generic import View, TemplateView, CreateView
 from django.contrib import messages
 from estoque.models import estoque_produto
 from checkout.models import Pedido
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import View, TemplateView, CreateView, UpdateView, FormView, ListView, DetailView
+from django.views.generic import TemplateView, CreateView, UpdateView, FormView
 from django.contrib.auth.forms import PasswordChangeForm
 
 # Create your views here.
@@ -68,6 +62,7 @@ def loja_produto(request, slug):
 
 def loginEcommerce(request):
     if request.method == 'POST':
+        context = {}
         form = LoginForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
@@ -77,17 +72,15 @@ def loginEcommerce(request):
                 login(request, account)
                 return HttpResponseRedirect(reverse('index'))
             else:
-                form = LoginForm()
-                context = {'form':form}
-                return render(request, 'login.html', context)
+                messages.error(request, 'Usuário ou senha Incorretos!')
         else:
-            form = LoginForm()
-            context = {'form':form}
-            return render(request, 'login.html', context)
+            messages.error(request, 'Formulário inválido!')
+
+        context = {'form':LoginForm()}
     else:
         form = LoginForm()
         context = {'form':form}
-        return render(request, 'login.html', context)
+    return render(request, 'login.html', context)
 
 class cadastro_cliente(CreateView):
     form_class = form_cliente
@@ -100,10 +93,10 @@ def registro(request):
     if request.method == 'POST':
         form = form_cliente(request.POST)
         if form.is_valid():
-            Gerencia_usuario.Cria_cliente(request, form)
+            form.save()
             return HttpResponseRedirect(reverse('index'))
         else:
-            return HttpResponseRedirect(reverse('registro'))
+            messages.error(request, 'Dados preenchidos incorretamente!')
     else:
         contexto = {
             "form" : form_cliente(),

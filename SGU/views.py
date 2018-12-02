@@ -1,15 +1,14 @@
-from django.shortcuts import render_to_response, render
-from django.http import HttpResponseRedirect # Funcao para redirecionar o usuario
+from django.contrib import messages
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.utils.decorators import method_decorator
 from SGU.forms import form_usuario, LoginForm
 from SGU.models import Grupos, Usuario, Permissions
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.views import login
-from django.views.generic import CreateView
 from src.usuario import Gerencia_usuario, Gerencia_permissao
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 
 # Create your views here.
 
@@ -109,6 +108,7 @@ def chg_pass(request):
     return render(request, "chg_pass.html")
 
 def loginAdminPanel(request):
+    context = {}
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -121,17 +121,11 @@ def loginAdminPanel(request):
                     login(request, account)
                     return HttpResponseRedirect(reverse('principal'))
                 else:
-                    form = LoginForm()
-                    context = {'form':form}
-                    return render(request, 'login_admin.html', context)
+                    messages.error(request, 'Usuário ou senha Incorretos!')
             else:
-                form = LoginForm()
-                context = {'form':form}
-                return render(request, 'login_admin.html', context)
+                messages.warning(request, 'Você não tem permissões administrativas!')
         else:
-            form = LoginForm()
-            context = {'form':form}
-            return render(request, 'login_admin.html', context)
+            messages.error(request, 'Formulário inválido!')
     else:
         form = LoginForm()
         context = {'form':form}
