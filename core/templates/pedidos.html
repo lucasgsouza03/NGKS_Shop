@@ -46,8 +46,8 @@
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
-    {% endblock %}
-    
+
+
     {% block conteudo1 %}
     <div id="page-wrapper" style="min-height: 570px;margin-left:0px">
         <div class="panel-body">
@@ -68,14 +68,14 @@
                     </thead>
                     <tbody>
                     {% for i in pedidos %}
-                        <td>{{ i.pk }}</td> 
+                        <td>{{ i.pk }}</td>
                         <td> {{ i.user }} </td>
                         {% if i.get_status_display == "Pago" %}
                             <td><button type="submit" name="button" value="{{ i.pk }}" class="btn btn-outline btn-primary" >Enviar</button></td>
                         {% else %}
                             <td> {{ i.get_status_display }} </td>
                         {% endif %}
-                        <td> {{ i.opcao_pagamento }} </td> 
+                        <td> {{ i.opcao_pagamento }} </td>
                         <td><a href="#">Editar</a></td>
                     </tr>
                     {% endfor %}
@@ -96,7 +96,6 @@
 
     {% endblock %}
 
-    {% endblock %}
 </body>
 
 </html>
