@@ -1,4 +1,5 @@
 from estoque.models import *
+from django.contrib import messages
 
 class Gerencia_fornecedor():
 
@@ -66,26 +67,30 @@ class Gerencia_materia():
 
 class Atualiza_estoque():
 
-    def adiciona_produto(id, quantidade):
+    def adiciona_produto(request, id, quantidade):
         produto = estoque_produto.objects.get(id=id)
         produto.quantidade = produto.quantidade + int(quantidade)
         produto.save()
+        messages.info(request, 'Adicionado ao estoque da Produto')
     
-    def remove_produto(id, quantidade):
+    def remove_produto(request, id, quantidade):
         produto = estoque_produto.objects.get(id=id)
         produto.quantidade = produto.quantidade - int(quantidade)
         if produto.quantidade < 0:
             produto.quantidade = 0
         produto.save()
+        messages.error(request, 'Removido do estoque do Produto')
 
-    def adiciona_materia(id, quantidade):
+    def adiciona_materia(request, id, quantidade):
         materia = estoque_materia_prima.objects.get(id=id)
         materia.quantidade = materia.quantidade + int(quantidade)
         materia.save()
+        messages.info(request, 'Adicionado ao estoque da Matéria-Prima')
     
-    def remove_materia(id, quantidade):
+    def remove_materia(request, id, quantidade):
         materia = estoque_materia_prima.objects.get(id=id)
         materia.quantidade = materia.quantidade - int(quantidade)
         if materia.quantidade < 0:
             materia.quantidade = 0
         materia.save()
+        messages.error(request, 'Removido do estoque da Matéria-Prima')

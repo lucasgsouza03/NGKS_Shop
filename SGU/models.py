@@ -25,7 +25,11 @@ class UsuarioManager(BaseUserManager):
 
 class Usuario(AbstractBaseUser):
     nome = models.CharField(max_length=100)
-    username = models.CharField(max_length=100, unique=True)   
+    cep = models.BigIntegerField(null=True)
+    cpf = models.BigIntegerField(null=True)
+    rg = models.BigIntegerField(null=True)
+    endereco = models.CharField(max_length=150)
+    username = models.CharField(max_length=100, unique=True)
     email = models.CharField(max_length=100, unique=True)
     tipo = models.CharField(max_length=1)
     password = models.CharField(max_length=150)
@@ -61,9 +65,14 @@ class Usuario(AbstractBaseUser):
     class Meta:
         ordering = ['nome']
 
-class Cliente(Usuario):
-    cep = models.BigIntegerField()
-    cpf = models.BigIntegerField()
+class Telefones(models.Model):
+    numero = models.IntegerField()
+    usuario = models.ForeignKey('usuario',
+    on_delete=models.CASCADE,)
+    operadora = models.CharField(max_length=50)    
+
+    def __str__(self):
+        return self.numero
 
 class Grupos(models.Model):
     nome = models.CharField(max_length=50)

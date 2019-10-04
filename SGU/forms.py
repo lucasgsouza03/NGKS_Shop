@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from SGU.models import Usuario, Cliente
+from SGU.models import Usuario
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext, gettext_lazy as _
 
@@ -39,8 +39,8 @@ class form_cliente(ModelForm):
         'password_mismatch': _("The two password fields didn't match."),
     }
     class Meta():
-        model = Cliente
-        fields = ['nome', 'username', 'email', 'password', 'password2', 'cpf', 'cep']
+        model = Usuario
+        fields = ['nome', 'email', 'password', 'password2', 'cpf', 'cep']
 
     def clean_password2(self):
         password = self.cleaned_data.get("password")
@@ -53,6 +53,7 @@ class form_cliente(ModelForm):
         return password2
     def save(self, commit=True):
         user = super(form_cliente, self).save(commit=False)
+        user.username = self.cleaned_data.get("email")
         user.tipo = 'C'
         user.set_password(user.password)
         if commit:

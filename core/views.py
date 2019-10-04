@@ -70,7 +70,7 @@ def loginEcommerce(request):
             account = authenticate(username=username, password=password)
             if account is not None:
                 login(request, account)
-                return HttpResponseRedirect(reverse('index'))
+                return HttpResponseRedirect(reverse('minha_conta'))
             else:
                 messages.error(request, 'Usuário ou senha Incorretos!')
         else:

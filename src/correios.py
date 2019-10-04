@@ -29,11 +29,11 @@ class Correios(object):
 
         return dados
 
-    def frete(self, cod='', GOCEP='08113000', HERECEP='01133000',
-        peso='1', formato='2', comprimento='20', altura='10', largura='10', diametro='20',
+    def frete(self, cod='40010', GOCEP='02563150', HERECEP='02925130',
+        peso='1', formato='1', comprimento='20', altura='20', largura='10', diametro='10',
         mao_propria='N', valor_declarado='0', aviso_recebimento='s', empresa='', senha='', toback='xml'):
 
-        base_url = "http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx"
+        base_url = "http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo"
 
         fields = [
             ('nCdEmpresa', empresa),
@@ -80,7 +80,7 @@ class Correios(object):
 '''
     def encomenda(self, numero):
 
-
+        #nova url = http://www.websro.com.br/rastreamento-correios.php?P_COD_UNI=SS9001234568BR
         url = 'http://websro.correios.com.br/sro_bin/txect01$.QueryList?' \
               'P_ITEMCODE=&P_LINGUA=001&P_TESTE=&P_TIPO=001&P_COD_UNI=%s' % \
               str(numero)

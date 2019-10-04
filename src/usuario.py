@@ -1,4 +1,4 @@
-from SGU.models import Usuario, Permissions, Grupos, Cliente
+from SGU.models import Usuario, Permissions, Grupos
 
 class Gerencia_usuario():
     def Deleta_usuario(delete):

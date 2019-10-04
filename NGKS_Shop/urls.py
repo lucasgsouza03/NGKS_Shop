@@ -17,13 +17,13 @@ from django.conf.urls import url, include
 from core.views import *
 from django.contrib.auth.views import logout, password_reset, password_reset_done, password_reset_confirm, password_reset_complete
 from rest_framework import routers
-from django.conf import settings
+from django.conf import settings as x
 from django.views.static import serve
-from catalogo import views as views_catalogo
 from checkout import views as views_checkout
 from core import views
-from api.views import estoqueProdutoViewSet
+from api.views import estoqueProdutoViewSet, CreateCartItemView
 from django.contrib import admin
+from . import settings
 
 ####################ROTAS########################################
 
@@ -65,6 +65,7 @@ urlpatterns = [
     #API
     url(r'api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls')),
+    url(r'carrinho/adicionar/(?P<slug>.*)/$', CreateCartItemView.as_view(), name="adicionar_carrinho"),
 ]
 
 if settings.DEBUG:

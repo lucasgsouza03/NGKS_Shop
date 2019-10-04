@@ -13,9 +13,10 @@
           <a href="{% url 'minha_conta' %}" class="list-group-item active">Minha Conta</a>
           <a href="{% url 'atualizar_usuario' %}" class="list-group-item">Alterar Dados</a>
           <a href="{% url 'alterar_senha' %}" class="list-group-item">Alterar Senha</a>
+          <a href="{% url 'lista_pedido' %}" class="list-group-item">Pedidos</a>
+          <a href="{% url 'checkout:cart_item' %}" class="list-group-item">Carrinho</a>
           {% if user.tipo == 'E' %}
           <a href="{% url 'principal' %}" class="list-group-item">Principal</a>
-          <a href="{% url 'lista_pedido' %}" class="list-group-item">Pedidos</a>
           {% endif%}
         </div>
     </div>
