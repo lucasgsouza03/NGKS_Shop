@@ -9,7 +9,8 @@
 </head>
 {% block pagina %}
 <body class="animsition">
-
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v4.0"></script>
 
   <!-- Product Detail -->
   <div class="container bgwhite p-t-35 p-b-80">
@@ -96,10 +97,7 @@
       </div>
     </div>
   </div>
-
-
-
-
+  <center><div class="fb-comments" data-href="http://localhost:8000/produtos/{{ produto.id }}/" data-width="" data-numposts="5"></div></center>
     </div>
   </section>
 

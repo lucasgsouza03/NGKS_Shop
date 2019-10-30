@@ -5,12 +5,12 @@
 {% endblock %}
 
 {% block pagina %}
-
-<div class="page-header" style="width: 50%;margin-left: 25%;text-align: -webkit-center;">
-	<h1>Fale Conosco!</h1><br><br>
-
     {% load bootstrap3 %}
     {% bootstrap_css %}
+
+<div class="page-header" style="width: 50%;margin-left: 25%;text-align: -webkit-center;">
+    <h1>Fale Conosco!</h1><br><br>
+
         {% if  success %}
         <div class="alert alert-success">
           Mensagem enviada com sucesso
