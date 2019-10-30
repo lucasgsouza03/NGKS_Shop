@@ -7,7 +7,7 @@ Primary use:  Company
 -------------------------------------------------------------------*/
 /*------------------------------------------------------------------
 [LAYOUT]
-
+-------------------------------------   ARQUIVO DO BANNER ------------------------------------------
 * body
   + Header / header
   + Page Content / .page-content .name-page
@@ -1359,7 +1359,7 @@ li.sale-noti > a {
 }
 
 .item-slick1 {
-  height: 430px;
+  height: 700px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center 20%;
