@@ -94,7 +94,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ngks_shop',
-        'USER': 'root',
+        'USER': 'ngks',
         'PASSWORD': 'Z3ld4100%',
         'HOST': 'localhost',
         'PORT': '3306',
